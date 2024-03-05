@@ -1,11 +1,12 @@
-<div class="modal fade" id="tambah_titipan" wire:ignore.self tabindex="-1" aria-labelledby="tambah_titipanLabel"
+<div class="modal fade" id="edit_titipan" wire:ignore.self tabindex="-1" aria-labelledby="edit_titipanLabel"
     aria-hidden="true">
     <div class="modal-dialog">
-        <form wire:submit='store'>
+        <form wire:submit='update'>
             @csrf
+            @method('PUT')
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="tambah_titipanLabel">@lang('crud.titipan.create_title')</h1>
+                    <h1 class="modal-title fs-5" id="edit_titipanLabel">@lang('crud.titipan.edit_title')</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -70,7 +71,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </div>
         </form>

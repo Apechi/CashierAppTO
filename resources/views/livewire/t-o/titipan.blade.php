@@ -27,7 +27,7 @@
                     <h4 class="card-title">@lang('crud.titipan.index_title')</h4>
                 </div>
 
-                <div class="table-responsive">
+                <div class="table-responsive" wire:ignore>
                     <table id="tableProdukTitipan" class="table table-borderless table-hover">
                         <thead>
                             <tr>
@@ -56,7 +56,7 @@
                         </thead>
                         <tbody>
                             @forelse($produkTitipan as $produk)
-                                <tr>
+                                <tr wire:key='produk_titipan-{{ $produk->id }}'>
                                     <td>{{ $produk->nama_produk ?? '-' }}</td>
                                     <td>{{ $produk->nama_supplier ?? '-' }}</td>
                                     <td>{{ $produk->harga_beli }} </td>
@@ -66,8 +66,10 @@
                                     <td class="text-center" style="width: 134px;">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             @can('update', $produk)
-                                                <a href="{{ route('titipan.edit', $produk) }}">
-                                                    <button type="button" class="btn btn-light">
+                                                <a>
+                                                    <button type="button" data-bs-toggle="modal"
+                                                        data-bs-target="#edit_titipan" data-produk_id="{{ $produk->id }}"
+                                                        class="btn btn-light titipan_edit">
                                                         <i class="icon ion-md-create"></i>
                                                     </button>
                                                 </a>
@@ -78,7 +80,7 @@
                                                     </button>
                                                 </a>
                                                 @endcan @can('delete', $produk)
-                                                <form action="{{ route('titipan.destroy', $menu) }}" method="POST"
+                                                <form action="{{ route('titipan.destroy', $produk) }}" method="POST"
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                     @csrf @method('DELETE')
                                                     <button type="submit" class="btn btn-light text-danger">
@@ -100,11 +102,27 @@
     </div>
 
     @include('livewire.t-o.create')
+    @include('livewire.t-o.edit')
 </div>
 @script
     <script>
         $(document).ready(function() {
             $('#tableProdukTitipan').DataTable();
+
+
+
+        });
+
+        $('.titipan_edit').click(function(e) {
+
+            let id = $(this).data('produk_id');
+
+            console.log(id);
+
+            $wire.dispatch('edit', {
+                id: id
+            })
+
         });
     </script>
 @endscript

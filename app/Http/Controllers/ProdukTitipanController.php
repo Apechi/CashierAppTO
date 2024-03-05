@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProdukTitipan;
 use App\Http\Requests\StoreProdukTitipanRequest;
 use App\Http\Requests\UpdateProdukTitipanRequest;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProdukTitipanController extends Controller
 {
@@ -29,7 +30,6 @@ class ProdukTitipanController extends Controller
      */
     public function store(StoreProdukTitipanRequest $request)
     {
-        //
     }
 
     /**
@@ -59,8 +59,19 @@ class ProdukTitipanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProdukTitipan $produkTitipan)
+    public function destroy($produkTitipan)
     {
-        //
+        $produkTitipan = ProdukTitipan::findOrFail($produkTitipan);
+
+        $produkTitipan->delete();
+
+        return redirect()
+            ->route('titipan.index')
+            ->withSuccess(__('crud.common.removed'));
+    }
+
+
+    public function exportExcel() {
+        // return Excel::download(new ProdukTitipanExport, 'titipan.xlsx');
     }
 }

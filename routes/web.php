@@ -15,6 +15,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProdukTitipanController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TryoutExController;
+use App\Models\ProdukTitipan;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Row;
@@ -34,9 +35,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/tes', function () {
-    return view('appLayout.app');
-});
+
 
 
 Auth::routes();
@@ -67,6 +66,7 @@ Route::prefix('/')
 
         //Excel Export
 
+
         Route::get('type/export/', [TypeController::class, 'exportExcel']);
         Route::get('category/export/', [CategoryController::class, 'exportExcel']);
         Route::get('menu/export/', [MenuController::class, 'exportExcel']);
@@ -78,6 +78,9 @@ Route::prefix('/')
         Route::get('user/export/', [UserController::class, 'exportExcel']);
         Route::get('role/export/', [RoleController::class, 'exportExcel']);
         Route::get('permission/export/', [PermissionController::class, 'exportExcel']);
+        Route::get('produktitip/export', [ProdukTitipanController::class, 'export']);
+
+        //TO Exclusive
     });
 
 //TO Exclusive

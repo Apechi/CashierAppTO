@@ -53,7 +53,7 @@
                         <label for="keuntungan" class="form-label" style="font-size: 0.7rem">Keuntungan</label>
                         <input type="number" style="pointer-events: none" readonly
                             class="form-control @error('keuntungan') is-invalid @enderror" id="keuntungan"
-                            name="keuntungan" wire:model.lazy='keuntungan' value="{{ old('keuntungan') }}">
+                            name="keuntungan" wire:model.live='keuntungan' value="{{ old('keuntungan') }}">
                         @error('keuntungan')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

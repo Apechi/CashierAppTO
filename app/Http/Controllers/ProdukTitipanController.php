@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProdukTitipanExport;
 use App\Models\ProdukTitipan;
 use App\Http\Requests\StoreProdukTitipanRequest;
 use App\Http\Requests\UpdateProdukTitipanRequest;
@@ -70,8 +71,8 @@ class ProdukTitipanController extends Controller
             ->withSuccess(__('crud.common.removed'));
     }
 
-
-    public function exportExcel() {
-        // return Excel::download(new ProdukTitipanExport, 'titipan.xlsx');
+    public function export()
+    {
+        return Excel::download(new ProdukTitipanExport, 'titipan.xlsx');
     }
 }

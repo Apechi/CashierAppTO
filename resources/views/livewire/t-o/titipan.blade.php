@@ -6,7 +6,7 @@
                     <a href="" class="btn btn-dark">
                         <i class="bi bi-file-pdf"></i> @lang('crud.common.export.pdf')
                     </a>
-                    <a href="" class="btn btn-dark">
+                    <a href="produktitip/export" class="btn btn-dark">
                         <i class="bi bi-file-excel"></i> @lang('crud.common.export.excel')
                     </a>
                     <a href="" class="btn btn-warning">
@@ -61,7 +61,10 @@
                                     <td>{{ $produk->nama_supplier ?? '-' }}</td>
                                     <td>{{ $produk->harga_beli }} </td>
                                     <td>{{ $produk->harga_jual ?? '-' }}</td>
-                                    <td>{{ $produk->stok ?? '-' }}</td>
+                                    <td>
+                                        <p class="stok_field" data-produk_id="{{ $produk->id }}">
+                                            {{ $produk->stok ?? '-' }}</p>
+                                    </td>
                                     <td>{{ $produk->keterangan ?? '-' }}</td>
                                     <td class="text-center" style="width: 134px;">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
@@ -71,12 +74,6 @@
                                                         data-bs-target="#edit_titipan" data-produk_id="{{ $produk->id }}"
                                                         class="btn btn-light titipan_edit">
                                                         <i class="icon ion-md-create"></i>
-                                                    </button>
-                                                </a>
-                                                @endcan @can('view', $produk)
-                                                <a href="{{ route('titipan.show', $produk) }}">
-                                                    <button type="button" class="btn btn-light">
-                                                        <i class="icon ion-md-eye"></i>
                                                     </button>
                                                 </a>
                                                 @endcan @can('delete', $produk)
@@ -109,13 +106,44 @@
         $(document).ready(function() {
             $('#tableProdukTitipan').DataTable();
 
+        });
 
+        $(document).ready(function() {
 
+            let id_produk = 0
+
+            $('.stok_field').dblclick(function() {
+                var currentValue = $(this).text().trim();
+                var id = $(this).data('produk_id');
+
+                id_produk = id
+
+                var inputElement = $('<input type="number">');
+                inputElement.val(currentValue);
+                $(this).replaceWith(inputElement);
+
+                inputElement.focus(); // Optionally focus the input element
+            });
+
+            // Handle blur event to revert back to <p> when user clicks outside the input
+            $(document).on('blur', 'input[type="number"]', function() {
+                var newValue = $(this).val().trim();
+                var paragraphElement = $('<p id="editableParagraph">').text(newValue);
+
+                $(this).replaceWith(paragraphElement);
+
+                $wire.dispatch('edit_stok', {
+                    id: id_produk,
+                    stok: newValue
+                })
+
+            });
         });
 
         $('.titipan_edit').click(function(e) {
 
             let id = $(this).data('produk_id');
+
 
             console.log(id);
 

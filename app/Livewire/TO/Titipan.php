@@ -4,6 +4,7 @@ namespace App\Livewire\TO;
 
 use App\Http\Requests\StoreProdukTitipanRequest;
 use App\Models\ProdukTitipan;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -18,6 +19,14 @@ class Titipan extends Component
     public function render()
     {
         $produkTitipan = ProdukTitipan::all();
+
+
+        $nambah = $this->harga_jual * 70 / 100;
+
+        $keuntungan = $this->harga_jual + $nambah;
+
+        $this->keuntungan = ceil($keuntungan / 500) * 500;
+
 
         return view('livewire.t-o.titipan', compact('produkTitipan'));
     }
@@ -34,9 +43,22 @@ class Titipan extends Component
         $this->harga_beli = $produkTitipan->harga_beli;
         $this->harga_jual = $produkTitipan->harga_jual;
         $this->keterangan = $produkTitipan->keterangan;
+        $this->keuntungan = 0;
         $this->stok = $produkTitipan->stok;
     }
 
+
+    #[On('edit_stok')]
+    public function editStock($id, $stok)
+    {
+
+
+        $produkTitipan = ProdukTitipan::findOrFail($id);
+
+        $produkTitipan->update([
+            'stok' => $stok
+        ]);
+    }
 
     public function store()
     {
@@ -46,6 +68,7 @@ class Titipan extends Component
             'nama_supplier' => 'required|string|max:255',
             'harga_beli' => 'required|numeric|min:0',
             'harga_jual' => 'required|numeric|min:0',
+            'keuntungan' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
             'keterangan' => 'required|string',
         ];
@@ -56,7 +79,7 @@ class Titipan extends Component
             'nama_produk' => $this->nama_produk,
             'nama_supplier' => $this->nama_supplier,
             'harga_beli' => $this->harga_beli,
-            'harga_jual' => $this->harga_jual,
+            'harga_jual' => $this->keuntungan,
             'keterangan' => $this->keterangan,
             'stok' => $this->stok
         ]);
@@ -72,6 +95,7 @@ class Titipan extends Component
             'nama_supplier' => 'required|string|max:255',
             'harga_beli' => 'required|numeric|min:0',
             'harga_jual' => 'required|numeric|min:0',
+            'keuntungan' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
             'keterangan' => 'required|string',
         ];
@@ -84,7 +108,7 @@ class Titipan extends Component
             'nama_produk' => $this->nama_produk,
             'nama_supplier' => $this->nama_supplier,
             'harga_beli' => $this->harga_beli,
-            'harga_jual' => $this->harga_jual,
+            'harga_jual' => $this->keuntungan,
             'stok' => $this->stok,
             'keterangan' => $this->keterangan,
         ]);

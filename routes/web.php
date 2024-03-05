@@ -12,9 +12,12 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProdukTitipanController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TryoutExController;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Row;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +61,10 @@ Route::prefix('/')
         Route::get('transaksi/invoice/{id}', [TransactionController::class, 'notaFaktur']);
         Route::get('transaction/show/{id}', [TransactionController::class, 'show']);
 
+        //TO Exclusive
+        Route::resource('titipan', ProdukTitipanController::class);
+
+
         //Excel Export
 
         Route::get('type/export/', [TypeController::class, 'exportExcel']);
@@ -72,3 +79,7 @@ Route::prefix('/')
         Route::get('role/export/', [RoleController::class, 'exportExcel']);
         Route::get('permission/export/', [PermissionController::class, 'exportExcel']);
     });
+
+//TO Exclusive
+Route::get('tentang', [TryoutExController::class, 'about']);
+Route::get('layanan', [TryoutExController::class, 'layanan']);

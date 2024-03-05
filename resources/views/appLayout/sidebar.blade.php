@@ -72,6 +72,15 @@
                     </a>
                 </li>
             @endcan
+            @can('view-any', App\Models\Booking::class)
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('titipan.index') ? '' : 'collapsed' }}"
+                        href="{{ route('titipan.index') }}">
+                        <i class="bi bi-bag-dash-fill"></i>
+                        <span>Produk Titipan</span>
+                    </a>
+                </li>
+            @endcan
             @can('view-any', App\Models\Transaction::class)
                 <li class="nav-heading">Transaksi</li>
 
@@ -133,15 +142,13 @@
         <li class="nav-heading">Other</li>
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('roles.index') ? '' : 'collapsed' }}"
-                href="{{ route('roles.index') }}">
+            <a class="nav-link {{ request()->routeIs('/tentang') ? '' : 'collapsed' }}" href="/tentang">
                 <i class="bi bi-question"></i>
                 <span>Tentang Aplikasi</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('permissions.index') ? '' : 'collapsed' }}"
-                href="{{ route('permissions.index') }}">
+            <a class="nav-link {{ request()->routeIs('/layanan') ? '' : 'collapsed' }}" href="/layanan">
                 <i class="bi bi-person-check"></i>
                 <span>Layanan Aplikasi</span>
             </a>

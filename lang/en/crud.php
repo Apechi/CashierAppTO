@@ -143,6 +143,24 @@ return [
         ],
     ],
 
+    'titipan' => [
+        'name' => 'Titipan',
+        'index_title' => 'List Data Produk Titipan',
+        'new_title' => 'Produk Titipan Baru',
+        'create_title' => 'Tambah Produk Titipan',
+        'edit_title' => 'Edit Produk Titipan',
+        'show_title' => 'Lihat Produk Titipan',
+        'inputs' => [
+            'nama_produk' => 'Nama Produk',
+            'nama_supplier' => 'Nama Supplier',
+            'harga_beli' => 'Harga Beli',
+            'harga_jual' => 'Harga Jual',
+            'stok' => 'Stok',
+            'keterangan' => 'Keterangan',
+        ]
+
+    ],
+
     'roles' => [
         'name' => 'Roles',
         'index_title' => 'List Role',

@@ -9,7 +9,9 @@
                     @lang('crud.menus.edit_title')
                 </h4>
 
-                <x-form method="PUT" action="{{ route('menus.update', $menu) }}" has-files class="mt-4">
+                <form method="POST" action="{{ route('menus.update', $menu) }}" enctype="multipart/form-data" class="mt-4">
+                    @csrf
+                    @method('PUT')
                     @include('app.menus.form-inputs')
 
                     <div class="mt-4">
@@ -28,7 +30,7 @@
                             @lang('crud.common.update')
                         </button>
                     </div>
-                </x-form>
+                </form>
             </div>
         </div>
     </div>

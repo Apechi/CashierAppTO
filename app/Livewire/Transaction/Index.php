@@ -301,8 +301,7 @@ class Index extends Component
                 ->simplePaginate(15);
         }
 
-        $produkTitipan = ProdukTitipan::all();
-        return view('livewire.transaction.index', compact('categories', 'customer', 'produk', 'produkTitipan'));
+        return view('livewire.transaction.index', compact('categories', 'customer', 'produk'));
     }
 
     public function generateCustomId()

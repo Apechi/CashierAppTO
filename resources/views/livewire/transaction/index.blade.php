@@ -120,19 +120,12 @@
                         {{ $produk->links() }}
                     </div>
                 </div>
-                <div class="produk-titipan mt-4 h-100">
+                {{-- <div class="produk-titipan mt-4 h-100">
                     <h5>Produk Titipan</h5>
                     <hr>
                     <div class="row">
-                        @foreach ($produkTitipan as $titipan)
-                            <a class="btn btn-warning col-2 m-1 ">
-
-                                <p class="m-0 p-0">{{ $titipan->nama_produk }}</p>
-
-                            </a>
-                        @endforeach
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div class="right col-md-12 col-lg-4">
                 <div class="card vh-100">

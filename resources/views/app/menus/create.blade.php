@@ -9,7 +9,8 @@
                     @lang('crud.menus.create_title')
                 </h4>
 
-                <x-form method="POST" action="{{ route('menus.store') }}" has-files class="mt-4">
+                <form method="POST" action="{{ route('menus.store') }}" enctype="multipart/form-data" class="mt-4">
+                    @csrf
                     @include('app.menus.form-inputs')
 
                     <div class="mt-4">
@@ -23,7 +24,7 @@
                             @lang('crud.common.create')
                         </button>
                     </div>
-                </x-form>
+                </form>
             </div>
         </div>
     </div>

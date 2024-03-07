@@ -79,7 +79,7 @@
                                                 </a>
                                                 @endcan @can('delete', $menu)
                                                 <form action="{{ route('menus.destroy', $menu) }}" method="POST"
-                                                    onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                                    class="delete-form">
                                                     @csrf @method('DELETE')
                                                     <button type="submit" class="btn btn-light text-danger">
                                                         <i class="icon ion-md-trash"></i>
@@ -103,6 +103,28 @@
     <script>
         $(document).ready(function() {
             $('#tableMenu').DataTable();
+
+
+        });
+
+
+        $('.delete-form').submit(function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "{{ __('crud.common.are_you_sure') }}",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33', // Mengubah warna tombol konfirmasi menjadi merah
+                cancelButtonColor: '#3085d6', // Mengubah warna tombol cancel menjadi biru
+                confirmButtonText: 'Ya, Hapus item ini!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If confirmed, submit the form
+                    $(this).unbind('submit').submit();
+                }
+            });
         });
     </script>
 @endpush

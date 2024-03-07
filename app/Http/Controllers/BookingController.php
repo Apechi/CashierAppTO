@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\BookingStoreRequest;
 use App\Http\Requests\BookingUpdateRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BookingController extends Controller
 {
@@ -46,7 +47,7 @@ class BookingController extends Controller
         $this->authorize('create', Booking::class);
 
         $validated = $request->validated();
-        
+
         $booking = Booking::create($validated);
 
         return redirect()
@@ -108,5 +109,14 @@ class BookingController extends Controller
         return redirect()
             ->route('bookings.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function exportpdf()
+    {
+        $data = Booking::latest()->get();
+
+        $pdf = Pdf::loadView('app.bookings.pdf', compact('data'));
+
+        return $pdf->download('bookings.pdf');
     }
 }

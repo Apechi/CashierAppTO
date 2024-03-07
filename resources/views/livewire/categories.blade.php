@@ -1,14 +1,10 @@
 <div>
     <div class="container">
         <div class="searchbar mt-0 mb-4">
-            <div class="d-flex justify-content-between">
-                <div class="input-group w-25">
-                    <span class="input-group-text bi bi-search"></span>
-                    <input class="form-control" wire:model.live="search" type="text" placeholder="Search">
-                </div>
+            <div class="d-flex justify-content-end">
                 <div class="">
                     @can('create', App\Models\Category::class)
-                        <a href="" class="btn btn-dark">
+                        <a href="category/exportpdf" class="btn btn-dark">
                             <i class="bi bi-file-pdf"></i> @lang('crud.common.export.pdf')
                         </a>
                         <a href="" class="btn btn-dark">
@@ -27,12 +23,12 @@
         </div>
 
         <div class="card">
-            <div class="card-body">
+            <div class="card-body">`
                 <div style="display: flex; justify-content: space-between;">
                     <h4 class="card-title">@lang('crud.categories.index_title')</h4>
                 </div>
 
-                <div class="table-responsive">
+                <div class="table-responsive" wire:ignore>
                     <table id="tableKategori" class="table table-borderless table-hover">
                         <thead>
                             <tr>
@@ -85,7 +81,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $categories->links() }}
+
                 </div>
             </div>
         </div>
@@ -93,3 +89,11 @@
         @include('livewire.categories-edit')
     </div>
 </div>
+@script
+    <script>
+        $(document).ready(function() {
+            $('#tableKategori').DataTable();
+
+        });
+    </script>
+@endscript

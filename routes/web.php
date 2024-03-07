@@ -76,9 +76,28 @@ Route::prefix('/')
         Route::get('booking/export/', [BookingController::class, 'exportExcel']);
         Route::get('listTransaction/export/', [TransactionController::class, 'exportExcel']);
         Route::get('user/export/', [UserController::class, 'exportExcel']);
-        Route::get('role/export/', [RoleController::class, 'exportExcel']);
-        Route::get('permission/export/', [PermissionController::class, 'exportExcel']);
         Route::get('produktitip/export', [ProdukTitipanController::class, 'export']);
+
+        //Excel Import
+
+        Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
+
+
+
+        // PDF Export
+        Route::get('produktitip/exportpdf', [ProdukTitipanController::class, 'exportpdf']);
+        Route::get('category/exportpdf', [CategoryController::class, 'exportpdf']);
+        Route::get('tipemenu/exportpdf', [TypeController::class, 'exportpdf']);
+        Route::get('menu/exportpdf', [MenuController::class, 'exportpdf']);
+        Route::get('stok/exportpdf', [StockController::class, 'exportpdf']);
+        Route::get('meja/exportpdf', [TableController::class, 'exportpdf']);
+        Route::get('produktitip/exportpdf', [ProdukTitipanController::class, 'exportpdf']);
+        Route::get('pelanggan/exportpdf', [CustomerController::class, 'exportpdf']);
+        Route::get('pemesanan/exportpdf', [BookingController::class, 'exportpdf']);
+        Route::get('pengguna/exportpdf', [UserController::class, 'exportpdf']);
+        Route::get('transaksilist/exportpdf', [TransactionController::class, 'exportpdf']);
+        // Route::get('produktitip/exportpdf', [ProdukTitipanController::class, 'exportpdf']);
+        // Route::get('produktitip/exportpdf', [ProdukTitipanController::class, 'exportpdf']);
 
         //TO Exclusive
     });

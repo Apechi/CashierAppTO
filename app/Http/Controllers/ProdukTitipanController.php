@@ -6,6 +6,10 @@ use App\Exports\ProdukTitipanExport;
 use App\Models\ProdukTitipan;
 use App\Http\Requests\StoreProdukTitipanRequest;
 use App\Http\Requests\UpdateProdukTitipanRequest;
+use App\Imports\MenuTypeImport;
+use App\Imports\ProdukTitipanImport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Client\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProdukTitipanController extends Controller
@@ -74,5 +78,19 @@ class ProdukTitipanController extends Controller
     public function export()
     {
         return Excel::download(new ProdukTitipanExport, 'titipan.xlsx');
+    }
+
+    public function exportpdf()
+    {
+        $data = ProdukTitipan::all();
+        $pdf = Pdf::loadView('livewire.t-o.pdf', compact('data'));
+        return $pdf->download('titipan.pdf');
+    }
+
+    public function import()
+    {
+
+        Excel::import(new ProdukTitipanImport(), request()->file('file'));
+        return redirect(route('titipan.index'))->with('success', 'Berhasil di Export');
     }
 }

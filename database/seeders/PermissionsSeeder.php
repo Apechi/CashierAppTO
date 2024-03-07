@@ -29,6 +29,8 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'view tables']);
         Permission::create(['name' => 'list types']);
         Permission::create(['name' => 'view types']);
+        Permission::create(['name' => 'list produk_titipans']);
+        Permission::create(['name' => 'view produk_titipans']);
 
         Permission::create(['name' => 'list transactions']);
         Permission::create(['name' => 'view transactions']);
@@ -86,6 +88,11 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'create types']);
         Permission::create(['name' => 'update types']);
         Permission::create(['name' => 'delete types']);
+
+        Permission::create(['name' => 'create produk_titipans']);
+        Permission::create(['name' => 'update produk_titipans']);
+        Permission::create(['name' => 'delete produk_titipans']);
+
 
 
 

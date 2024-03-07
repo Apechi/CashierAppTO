@@ -18,19 +18,31 @@ class Titipan extends Component
 
     public function render()
     {
-        $produkTitipan = ProdukTitipan::all();
+        $produkTitipan = ProdukTitipan::latest()->get();
 
 
-        $nambah = $this->harga_jual * 70 / 100;
+        $nambah = intval($this->harga_beli) * 70 / 100;
 
-        $keuntungan = $this->harga_jual + $nambah;
+        $keuntungan = intval($this->harga_beli)  + $nambah;
 
-        $this->keuntungan = ceil($keuntungan / 500) * 500;
+        $this->harga_jual = ceil($keuntungan / 500) * 500;
 
 
         return view('livewire.t-o.titipan', compact('produkTitipan'));
     }
 
+
+    public function resetField()
+    {
+        $this->nama_produk = null;
+        $this->nama_supplier = null;
+        $this->harga_beli = null;
+        $this->harga_jual = null;
+        $this->keuntungan = null;
+        $this->keterangan = null;
+        $this->stok = null;
+        $this->produkTitipanId = null;
+    }
 
     #[On('edit')]
     public function edit($id)
@@ -43,7 +55,6 @@ class Titipan extends Component
         $this->harga_beli = $produkTitipan->harga_beli;
         $this->harga_jual = $produkTitipan->harga_jual;
         $this->keterangan = $produkTitipan->keterangan;
-        $this->keuntungan = 0;
         $this->stok = $produkTitipan->stok;
     }
 
@@ -52,13 +63,16 @@ class Titipan extends Component
     public function editStock($id, $stok)
     {
 
-
         $produkTitipan = ProdukTitipan::findOrFail($id);
 
         $produkTitipan->update([
             'stok' => $stok
         ]);
+
+        redirect(route('titipan.index'));
     }
+
+
 
     public function store()
     {
@@ -68,7 +82,7 @@ class Titipan extends Component
             'nama_supplier' => 'required|string|max:255',
             'harga_beli' => 'required|numeric|min:0',
             'harga_jual' => 'required|numeric|min:0',
-            'keuntungan' => 'required|numeric|min:0',
+
             'stok' => 'required|integer|min:0',
             'keterangan' => 'required|string',
         ];
@@ -79,13 +93,16 @@ class Titipan extends Component
             'nama_produk' => $this->nama_produk,
             'nama_supplier' => $this->nama_supplier,
             'harga_beli' => $this->harga_beli,
-            'harga_jual' => $this->keuntungan,
+            'harga_jual' => $this->harga_jual,
             'keterangan' => $this->keterangan,
             'stok' => $this->stok
         ]);
 
-        redirect(route('titipan.index'));
+
+        redirect(route('titipan.index'))->with('success', 'Berhasil Di Tambah');
     }
+
+
 
 
     public function update()
@@ -95,7 +112,6 @@ class Titipan extends Component
             'nama_supplier' => 'required|string|max:255',
             'harga_beli' => 'required|numeric|min:0',
             'harga_jual' => 'required|numeric|min:0',
-            'keuntungan' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
             'keterangan' => 'required|string',
         ];
@@ -108,7 +124,7 @@ class Titipan extends Component
             'nama_produk' => $this->nama_produk,
             'nama_supplier' => $this->nama_supplier,
             'harga_beli' => $this->harga_beli,
-            'harga_jual' => $this->keuntungan,
+            'harga_jual' => $this->harga_jual,
             'stok' => $this->stok,
             'keterangan' => $this->keterangan,
         ]);

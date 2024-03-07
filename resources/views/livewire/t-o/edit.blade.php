@@ -1,9 +1,8 @@
-<div class="modal fade" id="edit_titipan" wire:ignore.self tabindex="-1" aria-labelledby="edit_titipanLabel"
-    aria-hidden="true">
+<div class="modal fade" id="edit_titipan" wire:ignore tabindex="-1" aria-labelledby="edit_titipanLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form wire:submit='update'>
             @csrf
-            @method('PUT')
+
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="edit_titipanLabel">@lang('crud.titipan.edit_title')</h1>
@@ -44,20 +43,20 @@
                         @enderror
 
                         <label for="harga_jual" class="form-label">Harga Jual</label>
-                        <input type="number" class="form-control @error('harga_jual') is-invalid @enderror"
+                        <input type="number" readonly class="form-control @error('harga_jual') is-invalid @enderror"
                             id="harga_jual" wire:model.lazy='harga_jual' name="harga_jual"
                             value="{{ old('harga_jual') }}">
                         @error('harga_jual')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
 
-                        <label for="keuntungan" class="form-label" style="font-size: 0.7rem">Keuntungan</label>
+                        {{-- <label for="keuntungan" class="form-label" style="font-size: 0.7rem">Keuntungan</label>
                         <input type="number" style="pointer-events: none" readonly
                             class="form-control @error('keuntungan') is-invalid @enderror" id="keuntungan"
-                            name="keuntungan" wire:model.live='keuntungan' value="{{ old('keuntungan') }}">
+                            name="keuntungan" wire:model.lazy='keuntungan' value="{{ old('keuntungan') }}">
                         @error('keuntungan')
                             <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        @enderror --}}
 
                         <label for="keterangan" class="form-label">Keterangan</label>
 

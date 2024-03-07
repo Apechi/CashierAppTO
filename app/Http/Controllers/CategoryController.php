@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CategoryController extends Controller
 {
@@ -96,5 +97,13 @@ class CategoryController extends Controller
         return redirect()
             ->route('categories.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+
+    public function exportpdf()
+    {
+        $data = Category::all();
+        $pdf = Pdf::loadView('app.categories.pdf', compact('data'));
+        return $pdf->download('categories.pdf');
     }
 }

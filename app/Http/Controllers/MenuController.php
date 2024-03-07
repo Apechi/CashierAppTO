@@ -10,6 +10,8 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\MenuStoreRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\MenuUpdateRequest;
+use App\Models\Stock;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MenuController extends Controller
 {
@@ -64,6 +66,10 @@ class MenuController extends Controller
     {
         $this->authorize('view', $menu);
 
+        $ets = Stock::all();
+
+        
+
         return view('app.menus.show', compact('menu'));
     }
 
@@ -74,7 +80,7 @@ class MenuController extends Controller
     {
         $this->authorize('update', $menu);
 
-        $types = Type::pluck('name', 'id');
+        $types = Type::pluck('name', 'id'); 
 
         return view('app.menus.edit', compact('menu', 'types'));
     }
@@ -120,5 +126,12 @@ class MenuController extends Controller
         return redirect()
             ->route('menus.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function exportpdf()
+    {
+        $data = Menu::all();
+        $pdf = Pdf::loadView('app.menus.pdf', compact('data'));
+        return $pdf->download('menu.pdf');
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StockStoreRequest;
 use App\Http\Requests\StockUpdateRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class StockController extends Controller
 {
@@ -107,5 +108,12 @@ class StockController extends Controller
         return redirect()
             ->route('stocks.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function exportpdf()
+    {
+        $data = Stock::all();
+        $pdf = Pdf::loadView('app.stocks.pdf', compact('data'));
+        return $pdf->download('stocks.pdf');
     }
 }

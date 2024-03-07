@@ -3,17 +3,18 @@
         <div class=" mt-0 mb-4">
             <div class="d-flex justify-content-end">
                 <div class=" text-right">
-                    <a href="" class="btn btn-dark">
+                    <a href="produktitip/exportpdf" class="btn btn-dark">
                         <i class="bi bi-file-pdf"></i> @lang('crud.common.export.pdf')
                     </a>
                     <a href="produktitip/export" class="btn btn-dark">
                         <i class="bi bi-file-excel"></i> @lang('crud.common.export.excel')
                     </a>
-                    <a href="" class="btn btn-warning">
+                    <a href="" data-bs-toggle="modal" data-bs-target="#ImportExcel" class="btn btn-warning">
                         <i class="bi bi-file-excel"></i> @lang('crud.common.import')
                     </a>
                     @can('create', App\Models\Menu::class)
-                        <button data-bs-toggle="modal" data-bs-target="#tambah_titipan" class="btn btn-primary">
+                        <button data-bs-toggle="modal" wire:click='resetField()' data-bs-target="#tambah_titipan"
+                            class="btn btn-primary">
                             <i class="icon ion-md-add"></i> @lang('crud.common.create')
                         </button>
                     @endcan
@@ -56,7 +57,7 @@
                         </thead>
                         <tbody>
                             @forelse($produkTitipan as $produk)
-                                <tr wire:key='produk_titipan-{{ $produk->id }}'>
+                                <tr wire:key='produktitipan-{{ $produk->id }}'>
                                     <td>{{ $produk->nama_produk ?? '-' }}</td>
                                     <td>{{ $produk->nama_supplier ?? '-' }}</td>
                                     <td>{{ $produk->harga_beli }} </td>
@@ -70,8 +71,9 @@
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             @can('update', $produk)
                                                 <a>
-                                                    <button type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#edit_titipan" data-produk_id="{{ $produk->id }}"
+                                                    <button type="button" wire:click='edit({{ $produk->id }})'
+                                                        data-bs-toggle="modal" data-bs-target="#edit_titipan"
+                                                        data-produk_id="{{ $produk->id }}"
                                                         class="btn btn-light titipan_edit">
                                                         <i class="icon ion-md-create"></i>
                                                     </button>
@@ -100,7 +102,32 @@
 
     @include('livewire.t-o.create')
     @include('livewire.t-o.edit')
+
+    <div class="modal fade" id="ImportExcel" tabindex="-1" aria-labelledby="ImportExcelLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/produktitip/import" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="ImportExcelLabel">Import Excel</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @csrf
+                        <input type="file" name="file" class="form-control">
+                        <br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+
 @script
     <script>
         $(document).ready(function() {
@@ -109,43 +136,39 @@
         });
 
         $(document).ready(function() {
-
-            let id_produk = 0
+            let id_produk = 0;
 
             $('.stok_field').dblclick(function() {
                 var currentValue = $(this).text().trim();
                 var id = $(this).data('produk_id');
 
-                id_produk = id
+                id_produk = id;
 
                 var inputElement = $('<input type="number">');
                 inputElement.val(currentValue);
-                $(this).replaceWith(inputElement);
+                inputElement.blur(function() { // Attach blur event handler here
+                    var newValue = $(this).val().trim();
+                    var paragraphElement = $('<p id="editableParagraph">').text(newValue);
 
+                    $(this).replaceWith(paragraphElement);
+
+                    $wire.dispatch('edit_stok', {
+                        id: id_produk,
+                        stok: newValue
+                    });
+                });
+
+                $(this).replaceWith(inputElement);
                 inputElement.focus(); // Optionally focus the input element
             });
-
-            // Handle blur event to revert back to <p> when user clicks outside the input
-            $(document).on('blur', 'input[type="number"]', function() {
-                var newValue = $(this).val().trim();
-                var paragraphElement = $('<p id="editableParagraph">').text(newValue);
-
-                $(this).replaceWith(paragraphElement);
-
-                $wire.dispatch('edit_stok', {
-                    id: id_produk,
-                    stok: newValue
-                })
-
-            });
         });
+
+
+
 
         $('.titipan_edit').click(function(e) {
 
             let id = $(this).data('produk_id');
-
-
-            console.log(id);
 
             $wire.dispatch('edit', {
                 id: id

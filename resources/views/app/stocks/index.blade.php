@@ -6,7 +6,7 @@
             <div class="d-flex justify-content-end">
 
                 <div class="text-right">
-                    <a href="" class="btn btn-dark">
+                    <a href="stok/exportpdf" class="btn btn-dark">
                         <i class="bi bi-file-pdf"></i> @lang('crud.common.export.pdf')
                     </a>
                     <a href="" class="btn btn-dark">

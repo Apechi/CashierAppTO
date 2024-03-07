@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\TableStoreRequest;
 use App\Http\Requests\TableUpdateRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TableController extends Controller
 {
@@ -102,5 +103,12 @@ class TableController extends Controller
         return redirect()
             ->route('tables.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function exportpdf()
+    {
+        $data = Table::all();
+        $pdf = Pdf::loadView('app.tables.pdf', compact('data'));
+        return $pdf->download('tables.pdf');
     }
 }

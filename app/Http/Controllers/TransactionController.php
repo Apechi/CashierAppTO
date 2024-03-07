@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Transaction;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -43,5 +44,15 @@ class TransactionController extends Controller
         $transaction = Transaction::findOrFail($id);
 
         return view('app.transaction.show', compact('transaction'));
+    }
+
+    public function exportpdf()
+    {
+
+        $data = Transaction::latest()->get();
+
+        $pdf = Pdf::loadView('app.transaction.pdf', compact('data'));
+
+        return $pdf->download('transaction.pdf');
     }
 }

@@ -12,7 +12,7 @@ class Categories extends Component
     use WithPagination;
 
 
-    public $search = '';
+
     public $name = '';
     public $icon = '';
     public $categories_id = 0;
@@ -28,11 +28,7 @@ class Categories extends Component
 
     public function render()
     {
-        $categories = Category::search($this->search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
-
+        $categories = Category::latest()->get();
 
         return view('livewire.categories', compact('categories'));
     }

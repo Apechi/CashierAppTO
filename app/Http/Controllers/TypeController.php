@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\TypeStoreRequest;
 use App\Http\Requests\TypeUpdateRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 
 class TypeController extends Controller
@@ -115,5 +116,12 @@ class TypeController extends Controller
     public function exportExcel()
     {
         return Excel::download(new MenuTypeExport, 'tipe.xlsx');
+    }
+
+    public function exportpdf()
+    {
+        $data = Type::all();
+        $pdf = Pdf::loadView('app.types.pdf', compact('data'));
+        return $pdf->download('type.pdf');
     }
 }

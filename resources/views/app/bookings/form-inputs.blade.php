@@ -1,27 +1,49 @@
 @php $editing = isset($booking) @endphp
 
 <div class="row">
-    <x-inputs.group class="col-sm-12">
-        <x-inputs.text name="bookers_name" label="Nama Pemesan" :value="old('bookers_name', $editing ? $booking->bookers_name : '')" placeholder="Nama Pemesan"
-            required></x-inputs.text>
-    </x-inputs.group>
+    <div class="col-sm-12">
+        <label for="bookers_name" class="form-label">Nama Pemesan</label>
+        <div class="input-group">
+            <input type="text" name="bookers_name" id="bookers_name"
+                class="form-control @error('bookers_name') is-invalid @enderror"
+                value="{{ old('bookers_name', $editing ? $booking->bookers_name : '') }}" placeholder="Nama Pemesan"
+                required>
+            @error('bookers_name')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
 
-    <x-inputs.group class="col-sm-12">
-        <x-inputs.date name="date" label="Tanggal Booking"
-            value="{{ old('date', $editing ? optional($booking->date)->format('Y-m-d') : '') }}"
-            required></x-inputs.date>
-    </x-inputs.group>
+    <div class="col-sm-12">
+        <label for="date" class="form-label">Tanggal Booking</label>
+        <div class="input-group">
+            <input type="date" name="date" id="date" class="form-control @error('date') is-invalid @enderror"
+                value="{{ old('date', $editing ? optional($booking->date)->format('Y-m-d') : '') }}" required>
+            @error('date')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
 
-    <x-inputs.group class="col-sm-12">
-        <x-inputs.select name="table_id" label="Meja" required>
-            @php $selected = old('table_id', ($editing ? $booking->table_id : '')) @endphp
-            <option disabled {{ empty($selected) ? 'selected' : '' }}>SIlahkan Pilih Meja yang Ingin Di Pesan</option>
-            @foreach ($tables as $value => $label)
-                <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }}>{{ $label }}
+    <div class="col-sm-12">
+        <label for="table_id" class="form-label">Meja</label>
+        <div class="input-group">
+            <select name="table_id" id="table_id" class="form-select @error('table_id') is-invalid @enderror" required>
+                <option disabled {{ empty(old('table_id', $editing ? $booking->table_id : '')) ? 'selected' : '' }}>
+                    Silahkan Pilih Meja yang Ingin Di Pesan
                 </option>
-            @endforeach
-        </x-inputs.select>
-    </x-inputs.group>
+                @foreach ($tables as $value => $label)
+                    <option value="{{ $value }}"
+                        {{ old('table_id', $editing ? $booking->table_id : '') == $value ? 'selected' : '' }}>
+                        {{ $label }}
+                    </option>
+                @endforeach
+            </select>
+            @error('table_id')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
 
     <div class="col-sm-12">
         <label for="start_time" class="form-label">Jam Mulai</label>
@@ -37,7 +59,7 @@
 
     <div class="col-sm-12">
         <label for="end_time" class="form-label">Jam Akhir</label>
-        <div class="input-group d-flex flex-row">
+        <div class="input-group">
             <input type="time" name="end_time" id="end_time"
                 class="form-control @error('end_time') is-invalid @enderror"
                 value="{{ old('end_time', $editing ? $booking->end_time : '') }}" placeholder="End Time" required>
@@ -47,8 +69,16 @@
         </div>
     </div>
 
-    <x-inputs.group class="col-sm-12">
-        <x-inputs.number name="total_customer" label="Total Pelanggan" :value="old('total_customer', $editing ? $booking->total_customer : '')" max="255"
-            placeholder="Total Pelanggan" required></x-inputs.number>
-    </x-inputs.group>
+    <div class="col-sm-12">
+        <label for="total_customer" class="form-label">Total Pelanggan</label>
+        <div class="input-group">
+            <input type="number" name="total_customer" id="total_customer"
+                class="form-control @error('total_customer') is-invalid @enderror"
+                value="{{ old('total_customer', $editing ? $booking->total_customer : '') }}"
+                placeholder="Total Pelanggan" required>
+            @error('total_customer')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
 </div>

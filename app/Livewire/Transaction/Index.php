@@ -5,6 +5,7 @@ namespace App\Livewire\Transaction;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Menu;
+use App\Models\ProdukTitipan;
 use App\Models\Stock;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
@@ -299,7 +300,9 @@ class Index extends Component
                 ->with('stocks')
                 ->simplePaginate(15);
         }
-        return view('livewire.transaction.index', compact('categories', 'customer', 'produk'));
+
+        $produkTitipan = ProdukTitipan::all();
+        return view('livewire.transaction.index', compact('categories', 'customer', 'produk', 'produkTitipan'));
     }
 
     public function generateCustomId()

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UserController extends Controller
 {
@@ -120,5 +121,14 @@ class UserController extends Controller
         return redirect()
             ->route('users.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function exportPdf()
+    {
+        $data = User::latest()->get();
+
+        $pdf = Pdf::loadView('app.users.pdf', compact('data'));
+
+        return $pdf->download('bookings.pdf');
     }
 }

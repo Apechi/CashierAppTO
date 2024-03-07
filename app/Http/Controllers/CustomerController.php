@@ -8,12 +8,19 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CustomerStoreRequest;
 use App\Http\Requests\CustomerUpdateRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CustomerController extends Controller
 {
     /**
+     * 
+     * 
      * Display a listing of the resource.
      */
+
+
+
+
     public function index(Request $request): View
     {
         $this->authorize('view-any', Customer::class);
@@ -105,4 +112,14 @@ class CustomerController extends Controller
             ->route('customers.index')
             ->withSuccess(__('crud.common.removed'));
     }
+
+    public function exportpdf()
+    {
+        $data = Customer::all();
+        $pdf = Pdf::loadView('app.customers.pdf', compact('data'));
+        return $pdf->download('customers.pdf');
+    }
+
+
+
 }

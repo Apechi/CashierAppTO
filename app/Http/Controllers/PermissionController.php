@@ -32,6 +32,22 @@ class PermissionController extends Controller
     {
         $this->authorize('create', Permission::class);
 
+        // $data = $this->validate($request, [
+        //     'permission' => 'required',
+        //     'table' => 'required',
+        //     'roles' => 'array'
+        // ]);
+
+        // $getPermission = $data['permission'];
+        // $tables = $data['table'];
+
+        // foreach ($getPermission as $permissionItem) {
+        //     $permission = Permission::create([
+                
+        //     ]);
+            
+        // }
+
         $roles = Role::all();
         return view('app.permissions.create')->with('roles', $roles);
     }

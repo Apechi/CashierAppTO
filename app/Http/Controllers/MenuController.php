@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MenuExport;
 use App\Models\Menu;
 use App\Models\Type;
 use Illuminate\View\View;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\MenuUpdateRequest;
 use App\Models\Stock;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MenuController extends Controller
 {
@@ -68,7 +70,7 @@ class MenuController extends Controller
 
         $ets = Stock::all();
 
-        
+
 
         return view('app.menus.show', compact('menu'));
     }
@@ -80,7 +82,7 @@ class MenuController extends Controller
     {
         $this->authorize('update', $menu);
 
-        $types = Type::pluck('name', 'id'); 
+        $types = Type::pluck('name', 'id');
 
         return view('app.menus.edit', compact('menu', 'types'));
     }
@@ -133,5 +135,10 @@ class MenuController extends Controller
         $data = Menu::all();
         $pdf = Pdf::loadView('app.menus.pdf', compact('data'));
         return $pdf->download('menu.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new MenuExport, date('Ymd') . ' Menus.xlsx');
     }
 }

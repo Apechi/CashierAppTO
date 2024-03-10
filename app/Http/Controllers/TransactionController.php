@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ListTransactionExport;
 use App\Models\Booking;
 use App\Models\Transaction;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionController extends Controller
 {
@@ -54,5 +56,10 @@ class TransactionController extends Controller
         $pdf = Pdf::loadView('app.transaction.pdf', compact('data'));
 
         return $pdf->download('transaction.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new ListTransactionExport, date('Ymd') . ' transaksi.xlsx');
     }
 }

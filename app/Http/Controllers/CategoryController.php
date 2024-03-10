@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KategoriExport;
 use App\Models\Category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CategoryController extends Controller
 {
@@ -105,5 +107,10 @@ class CategoryController extends Controller
         $data = Category::all();
         $pdf = Pdf::loadView('app.categories.pdf', compact('data'));
         return $pdf->download('categories.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new KategoriExport, date('Ymd') . ' categories.xlsx');
     }
 }

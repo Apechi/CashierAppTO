@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MejaExport;
 use App\Models\Table;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -9,8 +10,9 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\TableStoreRequest;
 use App\Http\Requests\TableUpdateRequest;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
-class TableController extends Controller
+class   TableController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -110,5 +112,10 @@ class TableController extends Controller
         $data = Table::all();
         $pdf = Pdf::loadView('app.tables.pdf', compact('data'));
         return $pdf->download('tables.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new MejaExport, date('Ymd') . ' tables.xlsx');
     }
 }

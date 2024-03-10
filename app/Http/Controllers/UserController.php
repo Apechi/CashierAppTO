@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UserExport;
 use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -130,5 +132,10 @@ class UserController extends Controller
         $pdf = Pdf::loadView('app.users.pdf', compact('data'));
 
         return $pdf->download('bookings.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new UserExport, date('Ymd') . ' users.xlsx');
     }
 }

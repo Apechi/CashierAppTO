@@ -10,7 +10,7 @@
                     <a href="/transaksilist/exportpdf" class="btn btn-dark">
                         <i class="bi bi-file-pdf"></i> @lang('crud.common.export.pdf')
                     </a>
-                    <a href="" class="btn btn-dark">
+                    <a href="/listTransaction/export/" class="btn btn-dark">
                         <i class="bi bi-file-excel"></i> @lang('crud.common.export.excel')
                     </a>
 

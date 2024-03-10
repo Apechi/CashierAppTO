@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\StokExport;
 use App\Models\Menu;
 use App\Models\Stock;
 use Illuminate\View\View;
@@ -10,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StockStoreRequest;
 use App\Http\Requests\StockUpdateRequest;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StockController extends Controller
 {
@@ -115,5 +117,10 @@ class StockController extends Controller
         $data = Stock::all();
         $pdf = Pdf::loadView('app.stocks.pdf', compact('data'));
         return $pdf->download('stocks.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new StokExport, date('Ymd') . ' stock.xlsx');
     }
 }

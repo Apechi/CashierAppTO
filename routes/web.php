@@ -68,19 +68,35 @@ Route::prefix('/')
 
 
         Route::get('type/export/', [TypeController::class, 'exportExcel']);
+
         Route::get('category/export/', [CategoryController::class, 'exportExcel']);
+
         Route::get('menu/export/', [MenuController::class, 'exportExcel']);
         Route::get('stok/export/', [StockController::class, 'exportExcel']);
         Route::get('table/export/', [TableController::class, 'exportExcel']);
         Route::get('customer/export/', [CustomerController::class, 'exportExcel']);
+
         Route::get('booking/export/', [BookingController::class, 'exportExcel']);
-        Route::get('listTransaction/export/', [TransactionController::class, 'exportExcel']);
+
+        Route::get('/listTransaction/export/', [TransactionController::class, 'exportExcel']);
         Route::get('user/export/', [UserController::class, 'exportExcel']);
+
         Route::get('produktitip/export', [ProdukTitipanController::class, 'export']);
 
         //Excel Import
 
-        Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
+        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
+        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
+        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
+        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
+        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
+        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
+        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
+        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
+        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
+        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
+        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
+        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
 
 
 

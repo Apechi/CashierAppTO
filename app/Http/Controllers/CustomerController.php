@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CustomerExport;
 use App\Models\Customer;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CustomerStoreRequest;
 use App\Http\Requests\CustomerUpdateRequest;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
@@ -120,6 +122,8 @@ class CustomerController extends Controller
         return $pdf->download('customers.pdf');
     }
 
-
-
+    public function exportExcel()
+    {
+        return Excel::download(new CustomerExport, date('Ymd') . ' customers.xlsx');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BookingsExport;
 use App\Models\Table;
 use App\Models\Booking;
 use Illuminate\View\View;
@@ -10,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\BookingStoreRequest;
 use App\Http\Requests\BookingUpdateRequest;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BookingController extends Controller
 {
@@ -118,5 +120,10 @@ class BookingController extends Controller
         $pdf = Pdf::loadView('app.bookings.pdf', compact('data'));
 
         return $pdf->download('bookings.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new BookingsExport, 'bookings.xlsx');
     }
 }

@@ -115,7 +115,7 @@ class TypeController extends Controller
 
     public function exportExcel()
     {
-        return Excel::download(new MenuTypeExport, 'tipe.xlsx');
+        return Excel::download(new MenuTypeExport, date('Ymd') . ' tipe.xlsx');
     }
 
     public function exportpdf()

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\TableStoreRequest;
 use App\Http\Requests\TableUpdateRequest;
+use App\Imports\MejaImport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -117,5 +118,11 @@ class   TableController extends Controller
     public function exportExcel()
     {
         return Excel::download(new MejaExport, date('Ymd') . ' tables.xlsx');
+    }
+
+    public function import()
+    {
+        Excel::import(new MejaImport(), request()->file('file'));
+        return redirect(route('tables.index'))->with('success', 'Berhasil di Import');
     }
 }

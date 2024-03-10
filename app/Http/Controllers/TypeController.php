@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\TypeStoreRequest;
 use App\Http\Requests\TypeUpdateRequest;
+use App\Imports\MenuTypeImport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -123,5 +124,11 @@ class TypeController extends Controller
         $data = Type::all();
         $pdf = Pdf::loadView('app.types.pdf', compact('data'));
         return $pdf->download('type.pdf');
+    }
+
+    public function import()
+    {
+        Excel::import(new MenuTypeImport(), request()->file('file'));
+        return redirect(route('types.index'))->with('success', 'Berhasil di Import');
     }
 }

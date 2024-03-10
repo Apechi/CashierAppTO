@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
+use App\Imports\KategoriImport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -112,5 +113,11 @@ class CategoryController extends Controller
     public function exportExcel()
     {
         return Excel::download(new KategoriExport, date('Ymd') . ' categories.xlsx');
+    }
+
+    public function import()
+    {
+        Excel::import(new KategoriImport(), request()->file('file'));
+        return redirect(route('categories.index'))->with('success', 'Berhasil di Import');
     }
 }

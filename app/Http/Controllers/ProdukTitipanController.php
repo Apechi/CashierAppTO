@@ -91,6 +91,6 @@ class ProdukTitipanController extends Controller
     {
 
         Excel::import(new ProdukTitipanImport(), request()->file('file'));
-        return redirect(route('titipan.index'))->with('success', 'Berhasil di Export');
+        return redirect(route('titipan.index'))->with('success', 'Berhasil di Import');
     }
 }

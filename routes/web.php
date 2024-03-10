@@ -85,23 +85,20 @@ Route::prefix('/')
 
         //Excel Import
 
-        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
-        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
-        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
-        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
-        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
-        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
-        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
-        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
-        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
-        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
-        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
-        // Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
+        Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
+        
+        Route::get('category/import', [CategoryController::class, 'import']);
+        Route::get('tipemenu/import', [TypeController::class, 'import']);
+        Route::get('menu/import', [MenuController::class, 'import']);
+        Route::get('stok/import', [StockController::class, 'import']);
+        Route::get('meja/import', [TableController::class, 'import']);
+        Route::get('pelanggan/import', [CustomerController::class, 'import']);
+        Route::get('pemesanan/import', [BookingController::class, 'import']);
 
 
 
         // PDF Export
-        Route::get('produktitip/exportpdf', [ProdukTitipanController::class, 'exportpdf']);
+
         Route::get('category/exportpdf', [CategoryController::class, 'exportpdf']);
         Route::get('tipemenu/exportpdf', [TypeController::class, 'exportpdf']);
         Route::get('menu/exportpdf', [MenuController::class, 'exportpdf']);

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StockStoreRequest;
 use App\Http\Requests\StockUpdateRequest;
+use App\Imports\StokImport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -122,5 +123,11 @@ class StockController extends Controller
     public function exportExcel()
     {
         return Excel::download(new StokExport, date('Ymd') . ' stock.xlsx');
+    }
+
+    public function import()
+    {
+        Excel::import(new StokImport(), request()->file('file'));
+        return redirect(route('stocks.index'))->with('success', 'Berhasil di Import');
     }
 }

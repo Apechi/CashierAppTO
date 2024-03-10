@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\MenuStoreRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\MenuUpdateRequest;
+use App\Imports\MenuImport;
 use App\Models\Stock;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
@@ -140,5 +141,11 @@ class MenuController extends Controller
     public function exportExcel()
     {
         return Excel::download(new MenuExport, date('Ymd') . ' Menus.xlsx');
+    }
+
+    public function import()
+    {
+        Excel::import(new MenuImport(), request()->file('file'));
+        return redirect(route('menus.index'))->with('success', 'Berhasil di Import');
     }
 }

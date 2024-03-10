@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CustomerStoreRequest;
 use App\Http\Requests\CustomerUpdateRequest;
+use App\Imports\BookingsImport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -125,5 +126,11 @@ class CustomerController extends Controller
     public function exportExcel()
     {
         return Excel::download(new CustomerExport, date('Ymd') . ' customers.xlsx');
+    }
+
+    public function import()
+    {
+        Excel::import(new BookingsImport(), request()->file('file'));
+        return redirect(route('bookings.index'))->with('success', 'Berhasil di Import');
     }
 }

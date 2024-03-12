@@ -127,7 +127,20 @@ class StockController extends Controller
 
     public function import()
     {
-        Excel::import(new StokImport(), request()->file('file'));
-        return redirect(route('stocks.index'))->with('success', 'Berhasil di Import');
+        try {
+            $file = request()->file('file');
+
+            // Check if file was uploaded
+            if (!$file) {
+                throw new \Exception('Tidak ada file');
+            }
+
+            Excel::import(new StokImport(), $file);
+
+            return redirect(route('stocks.index'))->with('success', 'Berhasil di Import');
+        } catch (\Exception $e) {
+            // Handle any exceptions that occurred during the import process
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

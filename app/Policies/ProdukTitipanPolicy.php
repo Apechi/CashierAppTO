@@ -13,7 +13,7 @@ class ProdukTitipanPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->hasPermissionTo('list produk_titipans');
     }
 
     /**
@@ -21,7 +21,7 @@ class ProdukTitipanPolicy
      */
     public function view(User $user, ProdukTitipan $produkTitipan): bool
     {
-        //
+        return $user->hasPermissionTo('view produk_titipans');
     }
 
     /**
@@ -29,7 +29,7 @@ class ProdukTitipanPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasPermissionTo('create produk_titipans');
     }
 
     /**
@@ -37,7 +37,7 @@ class ProdukTitipanPolicy
      */
     public function update(User $user, ProdukTitipan $produkTitipan): bool
     {
-        //
+        return $user->hasPermissionTo('update produk_titipans');
     }
 
     /**
@@ -45,7 +45,7 @@ class ProdukTitipanPolicy
      */
     public function delete(User $user, ProdukTitipan $produkTitipan): bool
     {
-        //
+        return $user->hasPermissionTo('delete produk_titipans');
     }
 
     /**
@@ -53,7 +53,7 @@ class ProdukTitipanPolicy
      */
     public function restore(User $user, ProdukTitipan $produkTitipan): bool
     {
-        //
+        return false;
     }
 
     /**
@@ -61,6 +61,6 @@ class ProdukTitipanPolicy
      */
     public function forceDelete(User $user, ProdukTitipan $produkTitipan): bool
     {
-        //
+        return $user->hasPermissionTo('delete produk_titipans');
     }
 }

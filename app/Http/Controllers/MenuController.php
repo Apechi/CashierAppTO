@@ -145,7 +145,20 @@ class MenuController extends Controller
 
     public function import()
     {
-        Excel::import(new MenuImport(), request()->file('file'));
-        return redirect(route('menus.index'))->with('success', 'Berhasil di Import');
+        try {
+            $file = request()->file('file');
+
+            // Check if file was uploaded
+            if (!$file) {
+                throw new \Exception('Tidak ada File');
+            }
+
+            Excel::import(new MenuImport(), $file);
+
+            return redirect(route('menus.index'))->with('success', 'Berhasil di Import');
+        } catch (\Exception $e) {
+            // Handle any exceptions that occurred during the import process
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

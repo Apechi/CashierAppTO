@@ -128,7 +128,20 @@ class TypeController extends Controller
 
     public function import()
     {
-        Excel::import(new MenuTypeImport(), request()->file('file'));
-        return redirect(route('types.index'))->with('success', 'Berhasil di Import');
+        try {
+            $file = request()->file('file');
+
+            // Check if file was uploaded
+            if (!$file) {
+                throw new \Exception('Tidak Ada File');
+            }
+
+            Excel::import(new MenuTypeImport(), $file);
+
+            return redirect(route('types.index'))->with('success', 'Berhasil di Import');
+        } catch (\Exception $e) {
+
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

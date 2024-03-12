@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\ListTransactionExport;
 use App\Models\Booking;
+use App\Models\Laporan;
 use App\Models\Transaction;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -18,6 +19,13 @@ class TransactionController extends Controller
     {
         $this->authorize('view-any', Transaction::class);
         return view('app.transaction.index');
+    }
+
+
+    public function laporan()
+    {
+        $this->authorize('view-any', Laporan::class);
+        return view('app.transaction.laporan');
     }
 
 

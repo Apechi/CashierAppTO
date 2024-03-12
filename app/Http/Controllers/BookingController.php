@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\BookingStoreRequest;
 use App\Http\Requests\BookingUpdateRequest;
+use App\Imports\BookingsImport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -125,5 +126,24 @@ class BookingController extends Controller
     public function exportExcel()
     {
         return Excel::download(new BookingsExport, 'bookings.xlsx');
+    }
+
+    public function import()
+    {
+        try {
+            $file = request()->file('file');
+
+            // Check if file was uploaded
+            if (!$file) {
+                throw new \Exception('Tidak ada file');
+            }
+
+            Excel::import(new BookingsImport(), $file);
+
+            return redirect(route('bookings.index'))->with('success', 'Berhasil di Import');
+        } catch (\Exception $e) {
+            // Handle any exceptions that occurred during the import process
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

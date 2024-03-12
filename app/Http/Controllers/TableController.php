@@ -122,7 +122,20 @@ class   TableController extends Controller
 
     public function import()
     {
-        Excel::import(new MejaImport(), request()->file('file'));
-        return redirect(route('tables.index'))->with('success', 'Berhasil di Import');
+        try {
+            $file = request()->file('file');
+
+            // Check if file was uploaded
+            if (!$file) {
+                throw new \Exception('Tidak ada file');
+            }
+
+            Excel::import(new MejaImport(), $file);
+
+            return redirect(route('tables.index'))->with('success', 'Berhasil di Import');
+        } catch (\Exception $e) {
+            // Handle any exceptions that occurred during the import process
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

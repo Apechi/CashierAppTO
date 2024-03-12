@@ -72,7 +72,7 @@
                     </a>
                 </li>
             @endcan
-            @can('view-any', App\Models\Booking::class)
+            @can('view-any', App\Models\ProdukTitipan::class)
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('titipan.index') ? '' : 'collapsed' }}"
                         href="{{ route('titipan.index') }}">
@@ -101,6 +101,18 @@
                             href="{{ route('transaction.listTransaksi') }}">
                             <i class="bi bi-basket-fill"></i>
                             <span>List Transaksi</span>
+                        </a>
+                    </li>
+                @endcan
+            @endcan
+
+            @can('view-any', App\Models\Laporan::class)
+                @can('view-any', App\Models\Laporan::class)
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs(['transaction.laporan']) ? '' : 'collapsed' }}"
+                            href="{{ route('transaction.laporan') }}">
+                            <i class="bi bi-bar-chart-fill"></i>
+                            <span>Laporan Transaksi</span>
                         </a>
                     </li>
                 @endcan

@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CustomerStoreRequest;
 use App\Http\Requests\CustomerUpdateRequest;
 use App\Imports\BookingsImport;
+use App\Imports\CustomerImport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -130,7 +131,20 @@ class CustomerController extends Controller
 
     public function import()
     {
-        Excel::import(new BookingsImport(), request()->file('file'));
-        return redirect(route('bookings.index'))->with('success', 'Berhasil di Import');
+        try {
+            $file = request()->file('file');
+
+            // Check if file was uploaded
+            if (!$file) {
+                throw new \Exception('Tidak ada file');
+            }
+
+            Excel::import(new CustomerImport(), $file);
+
+            return redirect(route('customers.index'))->with('success', 'Berhasil di Import');
+        } catch (\Exception $e) {
+            // Handle any exceptions that occurred during the import process
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

@@ -60,6 +60,8 @@ Route::prefix('/')
         Route::get('transaksi/invoice/{id}', [TransactionController::class, 'notaFaktur']);
         Route::get('transaction/show/{id}', [TransactionController::class, 'show']);
 
+        Route::get('transaction/laporan', [TransactionController::class, 'laporan'])->name('transaction.laporan');
+
         //TO Exclusive
         Route::resource('titipan', ProdukTitipanController::class);
 
@@ -86,14 +88,14 @@ Route::prefix('/')
         //Excel Import
 
         Route::post('produktitip/import', [ProdukTitipanController::class, 'import']);
-        
-        Route::get('category/import', [CategoryController::class, 'import']);
-        Route::get('tipemenu/import', [TypeController::class, 'import']);
-        Route::get('menu/import', [MenuController::class, 'import']);
-        Route::get('stok/import', [StockController::class, 'import']);
-        Route::get('meja/import', [TableController::class, 'import']);
-        Route::get('pelanggan/import', [CustomerController::class, 'import']);
-        Route::get('pemesanan/import', [BookingController::class, 'import']);
+
+        Route::post('category/import', [CategoryController::class, 'import']);
+        Route::post('tipemenu/import', [TypeController::class, 'import']);
+        Route::post('menu/import', [MenuController::class, 'import']);
+        Route::post('stok/import', [StockController::class, 'import']);
+        Route::post('meja/import', [TableController::class, 'import']);
+        Route::post('pelanggan/import', [CustomerController::class, 'import']);
+        Route::post('pemesanan/import', [BookingController::class, 'import']);
 
 
 

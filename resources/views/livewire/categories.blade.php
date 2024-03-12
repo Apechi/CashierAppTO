@@ -10,7 +10,7 @@
                         <a href="category/export/" class="btn btn-dark">
                             <i class="bi bi-file-excel"></i> @lang('crud.common.export.excel')
                         </a>
-                        <a href="" class="btn btn-warning">
+                        <a href="" data-bs-toggle="modal" data-bs-target="#ImportExcel" class="btn btn-warning">
                             <i class="bi bi-file-excel"></i> @lang('crud.common.import')
                         </a>
                         <button type="button" class="btn btn-primary" wire:click='resetField()' data-bs-toggle="modal"
@@ -21,7 +21,11 @@
                 </div>
             </div>
         </div>
-
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="card">
             <div class="card-body">`
                 <div style="display: flex; justify-content: space-between;">
@@ -87,6 +91,27 @@
         </div>
         @include('livewire.categories-form')
         @include('livewire.categories-edit')
+    </div>
+    <div class="modal fade" id="ImportExcel" tabindex="-1" aria-labelledby="ImportExcelLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/category/import" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="ImportExcelLabel">Import Excel</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @csrf
+                        <input type="file" name="file" class="form-control">
+                        <br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 @script

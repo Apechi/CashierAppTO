@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table id="tableBooking" class="table table-borderless table-hover">
+                    <table id="tableTransaksi" class="table table-borderless table-hover">
                         <thead>
                             <tr>
                                 <th class="text-left">
@@ -91,7 +91,7 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#tableBooking').DataTable();
+            $('#tableTransaksi').DataTable();
 
 
         });

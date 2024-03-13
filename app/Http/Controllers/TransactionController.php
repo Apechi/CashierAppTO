@@ -36,8 +36,6 @@ class TransactionController extends Controller
         return view('app.transaction.invoice', compact('data'));
     }
 
-
-
     public function listTransaksi()
     {
         $this->authorize('view-any', Transaction::class);

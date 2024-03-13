@@ -26,7 +26,7 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-primary col-md-2" type="submit">Search</button>
+                    <button class="btn btn-primary col-md-2 my-auto" type="submit">Search</button>
                 </div>
             </form>
 

@@ -32,7 +32,7 @@
 
 
             <div class="table-responsive mt-4">
-                <table id="tableTransaksi" class="table table-borderless table-hover">
+                <table id="tableTransaksi" class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th class="text-left">
@@ -63,12 +63,20 @@
                                 <td>{{ $transaction->customer->name ?? '-' }}</td>
                                 <td>{{ $transaction->payment_method ?? '-' }}</td>
                                 <td>{{ $transaction->keterangan ?? '-' }}</td>
-                                <td>{{ $transaction->total_price ?? '-' }}</td>
+                                <td>Rp {{ number_format($transaction->total_price, 0, ',', '.') ?? '-' }}</td>
                             </tr>
                         @empty
+                            <tr>
+                                <td colspan="6" class="text-center">Tidak ada data / Pilih tanggal</td>
+                            </tr>
                         @endforelse
                     </tbody>
-
+                    <tfoot>
+                        <tr>
+                            <th colspan="5" class="text-right">Total Pendapatan</th>
+                            <th>Rp {{ number_format($total_pendapatan, 0, ',', '.') }}</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
             <button class="btn btn-secondary">Kembali</button>

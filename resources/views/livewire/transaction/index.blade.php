@@ -84,7 +84,7 @@
                                                         {{ $item->stocks->first()->quantity ?? '0' }}</p>
                                                 </div>
                                                 <h5 class="text-primary mb-0" style="font-size: 0.8rem">
-                                                    Rp.{{ $item->price }}</h5>
+                                                    Rp {{ number_format($item->price, 0, ',', '.') }}</h5>
                                             </div>
 
                                             {{-- <div class="d-flex justify-content-between mb-2">
@@ -158,7 +158,7 @@
                                                     {{ $item['name'] }}
                                                 </p>
                                                 <p class="text-muted m-0" style="font-size: 0.8rem">
-                                                    Rp.{{ $item['sub_total'] }}
+                                                    Rp {{ number_format($item['sub_total'], 0, ',', '.') }}
                                                 </p>
                                             </div>
                                             <div class="qtyControl d-md-flex gap-md-1">
@@ -189,7 +189,7 @@
                         <div class="checkout m-3">
                             <div class="total d-flex justify-content-between">
                                 <p>Total: </p>
-                                <p class="text-primary"> Rp. {{ $total_price }}</p>
+                                <p class="text-primary"> Rp {{ number_format($total_price, 0, ',', '.') }}</p>
                             </div>
                             <button data-bs-toggle="modal" wire:click='setupCheckout()'
                                 data-bs-target="#CheckoutModal" type="button" class="btn btn-success w-100">

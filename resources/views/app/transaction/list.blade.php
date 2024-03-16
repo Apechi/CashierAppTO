@@ -60,7 +60,7 @@
                                     <td>{{ $transaction->customer->name ?? '-' }}</td>
                                     <td>{{ $transaction->payment_method ?? '-' }}</td>
                                     <td>{{ $transaction->keterangan ?? '-' }}</td>
-                                    <td>{{ $transaction->total_price ?? '-' }}</td>
+                                    <td>Rp {{ number_format($transaction->total_price, 0, ',', '.') ?? '-' }}</td>
                                     <td class="text-center" style="width: 134px;">
                                         <div role="group" aria-label="Row Actions" class="btn-group d-flex gap-2">
                                             @can('view', $transaction)

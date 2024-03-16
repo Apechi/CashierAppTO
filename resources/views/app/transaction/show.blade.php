@@ -60,9 +60,9 @@
                                                 <p class="text-muted mb-0">{{ $item->menu->description }}</p>
                                             </div>
                                         </td>
-                                        <td>Rp. {{ $item->unitPrice }}</td>
+                                        <td>Rp {{ number_format($item->unitPrice, 0, ',', '.') }}</td>
                                         <td>{{ $item->qty }}</td>
-                                        <td class="text-end">Rp. {{ $item->subTotal }}</td>
+                                        <td class="text-end">Rp {{ number_format($item->subTotal, 0, ',', '.') }}</td>
                                     </tr>
                                 @endforeach
                                 <!-- end tr -->
@@ -78,7 +78,7 @@
                     <div class="total d-flex gap-4 m-3 justify-content-end">
                         <h4 class="border-0 text-end">Total: </h4>
                         <h4 class="m-0 fw-semibold text-end" colspan="3">Rp
-                            {{ $transaction->total_price }}
+                            {{ number_format($transaction->total_price, 0, ',', '.') }}
                         </h4>
                     </div>
                 </div>

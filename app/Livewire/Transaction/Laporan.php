@@ -10,6 +10,7 @@ class Laporan extends Component
 
     public $start_date, $end_date;
     public $data_laporan = [];
+    public $total_pendapatan = 0;
 
 
     public function getLaporan()
@@ -21,7 +22,10 @@ class Laporan extends Component
             'end_date.after_or_equal' => 'The end date must be after or equal to the start date.',
         ]);
 
-        $this->data_laporan = Transaction::whereBetween('date', [$this->start_date, $this->end_date])->get();
+        $data_laporan = Transaction::whereBetween('date', [$this->start_date, $this->end_date]);
+
+        $this->data_laporan = $data_laporan->get();
+        $this->total_pendapatan = $data_laporan->sum('total_price');
     }
 
 

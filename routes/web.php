@@ -111,6 +111,7 @@ Route::prefix('/')
         Route::get('pemesanan/exportpdf', [BookingController::class, 'exportpdf']);
         Route::get('pengguna/exportpdf', [UserController::class, 'exportpdf']);
         Route::get('transaksilist/exportpdf', [TransactionController::class, 'exportpdf']);
+        Route::get('laporan/exportpdf/{start}/{end}', [TransactionController::class, 'exportLaporan']);
         // Route::get('produktitip/exportpdf', [ProdukTitipanController::class, 'exportpdf']);
         // Route::get('produktitip/exportpdf', [ProdukTitipanController::class, 'exportpdf']);
 

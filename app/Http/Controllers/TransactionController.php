@@ -68,4 +68,19 @@ class TransactionController extends Controller
     {
         return Excel::download(new ListTransactionExport, date('Ymd') . ' transaksi.xlsx');
     }
+
+    public function exportLaporan($start, $end)
+    {
+        $data_laporan = Transaction::whereBetween('date', [$start, $end]);
+
+        $laporan = $data_laporan->get();
+        $total_pendapatan = $data_laporan->sum('total_price');
+
+        $start_date = date('d-m-Y', strtotime($start));
+        $end_date = date('d-m-Y', strtotime($end));
+
+        $pdf = Pdf::loadView('app.transaction.laporanpdf', compact('laporan', 'total_pendapatan', 'start_date', 'end_date'));
+
+        return $pdf->download("Laporan Tanggal " . date('d-m-Y'));
+    }
 }

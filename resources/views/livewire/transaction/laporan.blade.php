@@ -32,6 +32,11 @@
 
 
             <div class="table-responsive mt-4">
+                @if (!empty($data_laporan))
+                    <a href="/laporan/exportpdf/{{ $start_date }}/{{ $end_date }}" class="btn btn-dark text-end">
+                        <i class="bi bi-file-pdf"></i> @lang('crud.common.export.pdf')
+                    </a>
+                @endif
                 <table id="tableTransaksi" class="table table-bordered table-hover">
                     <thead>
                         <tr>
@@ -79,7 +84,7 @@
                     </tfoot>
                 </table>
             </div>
-            <button class="btn btn-secondary">Kembali</button>
+
         </div>
     </div>
 </div>

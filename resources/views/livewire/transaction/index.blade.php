@@ -235,5 +235,25 @@
                 "width=500px,height=700px");
             location.reload();
         });
+
+        $(document).ready(function() {
+            let barcodeInput = '';
+
+            $(document).on('keydown', function(event) {
+                const key = event.key;
+                const keyCode = event.which || event.keyCode;
+
+             
+                if (/^\d$/.test(key) || (keyCode >= 98 && keyCode <= 105)) {
+                    barcodeInput += key;
+                } else if (key === 'Enter') {
+
+                    if (barcodeInput) {
+                        $wire.pilihMenu(1)
+                        barcodeInput = '';
+                    }
+                }
+            });
+        });
     </script>
 @endscript

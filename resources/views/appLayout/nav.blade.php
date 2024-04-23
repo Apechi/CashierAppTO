@@ -3,7 +3,7 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="{{ route('home') }}" class="logo d-flex align-items-center">
-                <img src="assets/img/logo.png" alt="">
+
                 <span class="d-none d-lg-block">ApechiCafe</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -56,6 +56,19 @@
                         </ul><!-- End Profile Dropdown Items -->
                     </li><!-- End Profile Nav -->
                 @endauth
+
+                @guest
+                    @if (request()->route()->getName() != 'login')
+                        <li class="pe-4">
+                            <a class="dropdown-item d-flex align-items-center" href="/login">
+                                <i class="bi bi-box-arrow-left p-1"></i>
+                                <span>Login</span>
+                            </a>
+                        </li>
+                    @endif
+                @endguest
+
+                <li class="nav-item">
 
             </ul>
         </nav><!-- End Icons Navigation -->

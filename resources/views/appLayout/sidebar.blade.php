@@ -81,6 +81,18 @@
                     </a>
                 </li>
             @endcan
+            @can('view-any', App\Models\Laporan::class)
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs(['absensi.index']) ? '' : 'collapsed' }}"
+                        href="{{ route('absensi.index') }}">
+                        <i class="bi bi-person-workspace"></i>
+                        <span>Absensi Karyawan</span>
+                    </a>
+                </li>
+            @endcan
+
+
+
             @can('view-any', App\Models\Transaction::class)
                 <li class="nav-heading">Transaksi</li>
 

@@ -283,6 +283,8 @@ class Index extends Component
 
     public function render()
     {
+        $this->tanggal = date('Y-m-d');
+
         $categories = Category::all();
         $customer = Customer::all();
 

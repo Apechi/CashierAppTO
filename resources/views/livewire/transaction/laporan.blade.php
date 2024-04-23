@@ -64,7 +64,7 @@
                         @forelse($data_laporan as $transaction)
                             <tr>
                                 <td>{{ $transaction->id ?? '-' }}</td>
-                                <td>{{ $transaction->date ?? '-' }}</td>
+                                <td>{{ date('Y-m-d', strtotime($transaction->date)) ?? '-' }}</td>
                                 <td>{{ $transaction->customer->name ?? '-' }}</td>
                                 <td>{{ $transaction->payment_method ?? '-' }}</td>
                                 <td>{{ $transaction->keterangan ?? '-' }}</td>

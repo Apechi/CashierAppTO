@@ -161,6 +161,22 @@ return [
 
     ],
 
+    'absensi' => [
+        'name' => 'Absensi',
+        'index_title' => 'List Data Absensi Karyawan',
+        'new_title' => 'Absensi Karyawan Baru',
+        'create_title' => 'Tambah Absensi Karyawan',
+        'edit_title' => 'Edit Absensi Karyawan',
+        'show_title' => 'Lihat Absensi Karyawan',
+        'inputs' => [
+            'nama_karyawan' => 'Nama Karyawan',
+            'tanggal_masuk' => 'Tanggal Masuk',
+            'waktu_masuk' => 'Waktu Masuk',
+            'waktu_keluar' => 'Waktu Keluar',
+            'status' => 'Status',
+        ],
+    ],
+
     'roles' => [
         'name' => 'Roles',
         'index_title' => 'List Role',

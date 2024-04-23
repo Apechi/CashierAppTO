@@ -8,8 +8,12 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\WithTitle;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 
-class BookingsExport implements FromCollection, ShouldAutoSize, WithHeadings
+class BookingsExport implements FromCollection, ShouldAutoSize, WithHeadings, WithStyles, WithTitle
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -27,6 +31,7 @@ class BookingsExport implements FromCollection, ShouldAutoSize, WithHeadings
             ];
         });
     }
+
     /**
      * Customize the headers for the export.
      *
@@ -36,11 +41,51 @@ class BookingsExport implements FromCollection, ShouldAutoSize, WithHeadings
     {
         return [
             'Tanggal',
-            'Nama Meja', // Change 'table_name' to 'Table Name' here
+            'Nama Meja',
             'Waktu Mulai',
             'Waktu Selesai',
             "Nama Pemesan",
             'Total Pelanggan',
         ];
+    }
+
+    /**
+     * Set the title for the export.
+     *
+     * @return string
+     */
+    public function title(): string
+    {
+        return 'Data Booking';
+    }
+
+    /**
+     * Apply styles to the export.
+     *
+     * @param Worksheet $sheet
+     * @return array
+     */
+    public function styles(Worksheet $sheet): array
+    {
+        // Define the border style
+        $borderStyle = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => '00000000'],
+                ],
+            ],
+        ];
+
+        // Apply the yellow background to the header row
+        $sheet->getStyle('A1:F1')->applyFromArray([
+            'font' => ['bold' => true],
+            'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'FFFFFF00']],
+        ]);
+
+        // Apply the border style to all cells starting from the second row (below the title)
+        $sheet->getStyle('A2:F' . $sheet->getHighestRow())->applyFromArray($borderStyle);
+
+        return [];
     }
 }

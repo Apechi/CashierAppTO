@@ -57,8 +57,7 @@
                         <div class="">
                             <input type="date" name="tanggal"
                                 class="form-control @error('tanggal') is-invalid @enderror" wire:model.live='tanggal'
-                                value="{{ now()->format('m-d-Y') }}" max="{{ date('Y-m-d') }}"
-                                min="{{ date('Y-m-d') }}">
+                                value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}">
                             @error('tanggal')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

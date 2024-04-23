@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiKaryawanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TypeController;
@@ -55,6 +56,7 @@ Route::prefix('/')
         Route::resource('bookings', BookingController::class);
         Route::resource('categories', CategoryController::class);
         Route::resource('menus', MenuController::class);
+        Route::resource('absensi', AbsensiKaryawanController::class);
         Route::get('transaction', [TransactionController::class, 'index'])->name('transaction.index');
         Route::get('transaction/index', [TransactionController::class, 'listTransaksi'])->name('transaction.listTransaksi');
         Route::get('transaksi/invoice/{id}', [TransactionController::class, 'notaFaktur']);

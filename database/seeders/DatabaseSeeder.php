@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             ]);
 
         \App\Models\User::factory()
-            ->count(1)
+            ->count(    1)
             ->create([
                 'email' => 'cashier@cashier.com',
                 'password' => Hash::make('cashier'),

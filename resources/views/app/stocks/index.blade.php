@@ -34,7 +34,7 @@
                     <h4 class="card-title">@lang('crud.stocks.index_title')</h4>
                 </div>
 
-                <div class="table-responsive">
+                <div class="table-responsive" wire:ignore>
                     <table id="tableStok" class="table table-borderless table-hover">
                         <thead>
                             <tr>

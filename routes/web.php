@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AbsensiKaryawanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProdukTitipanController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TryoutExController;
+use App\Models\Absensi;
 use App\Models\ProdukTitipan;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +58,7 @@ Route::prefix('/')
         Route::resource('bookings', BookingController::class);
         Route::resource('categories', CategoryController::class);
         Route::resource('menus', MenuController::class);
-        Route::resource('absensi', AbsensiKaryawanController::class);
+        Route::resource('absensi', AbsensiController::class);
         Route::get('transaction', [TransactionController::class, 'index'])->name('transaction.index');
         Route::get('transaction/index', [TransactionController::class, 'listTransaksi'])->name('transaction.listTransaksi');
         Route::get('transaksi/invoice/{id}', [TransactionController::class, 'notaFaktur']);
@@ -66,6 +68,7 @@ Route::prefix('/')
 
         //TO Exclusive
         Route::resource('titipan', ProdukTitipanController::class);
+        Route::get('absensikaryawan/laporan', [AbsensiController::class, 'laporan'])->name('absensi.laporan');
 
 
         //Excel Export
@@ -86,6 +89,8 @@ Route::prefix('/')
         Route::get('user/export/', [UserController::class, 'exportExcel']);
 
         Route::get('produktitip/export', [ProdukTitipanController::class, 'export']);
+        Route::get('karyawanabsensi/export', [AbsensiController::class, 'exportExcel']);
+
 
         //Excel Import
 
@@ -98,6 +103,7 @@ Route::prefix('/')
         Route::post('meja/import', [TableController::class, 'import']);
         Route::post('pelanggan/import', [CustomerController::class, 'import']);
         Route::post('pemesanan/import', [BookingController::class, 'import']);
+        Route::post('absensikaryawan/import', [AbsensiController::class, 'import']);
 
 
 
@@ -114,12 +120,18 @@ Route::prefix('/')
         Route::get('pengguna/exportpdf', [UserController::class, 'exportpdf']);
         Route::get('transaksilist/exportpdf', [TransactionController::class, 'exportpdf']);
         Route::get('laporan/exportpdf/{start}/{end}', [TransactionController::class, 'exportLaporan']);
+        Route::get('absensilaporan/exportpdf/{start}/{end}', [AbsensiController::class, 'exportLaporan']);
         // Route::get('produktitip/exportpdf', [ProdukTitipanController::class, 'exportpdf']);
         // Route::get('produktitip/exportpdf', [ProdukTitipanController::class, 'exportpdf']);
 
         //TO Exclusive
+
+        Route::get('karyawanabsensi/exportpdf', [AbsensiController::class, 'exportpdf']);
     });
 
 //TO Exclusive
 Route::get('tentang', [TryoutExController::class, 'about']);
 Route::get('layanan', [TryoutExController::class, 'layanan']);
+Route::get('contact', [
+    TryoutExController::class, 'contact'
+]);

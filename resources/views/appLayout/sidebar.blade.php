@@ -90,6 +90,15 @@
                     </a>
                 </li>
             @endcan
+            @can('view-any', App\Models\Laporan::class)
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs(['absensi.laporan']) ? '' : 'collapsed' }}"
+                        href="{{ route('absensi.laporan') }}">
+                        <i class="bi bi-activity"></i>
+                        <span>Laporan Karyawan</span>
+                    </a>
+                </li>
+            @endcan
 
 
 
@@ -175,6 +184,12 @@
             <a class="nav-link {{ request()->routeIs('/layanan') ? '' : 'collapsed' }}" href="/layanan">
                 <i class="bi bi-person-check"></i>
                 <span>Layanan Aplikasi</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('/contact') ? '' : 'collapsed' }}" href="/contact">
+                <i class="bi bi-telephone"></i>
+                <span>Contact Us</span>
             </a>
         </li>
     </ul>

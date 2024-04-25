@@ -18,4 +18,8 @@ class TryoutExController extends Controller
     {
         return view('app.other.service');
     }
+
+    public function contact() {
+        return view('app.other.contact');
+    }
 }

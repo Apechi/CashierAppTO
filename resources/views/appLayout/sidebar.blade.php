@@ -7,6 +7,14 @@
 
         @auth
 
+            @can('view-any', App\Models\Category::class)
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs(['home']) ? '' : 'collapsed' }}" href="{{ route('home') }}">
+                        <i class="bi bi-house"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+            @endcan
             <li class="nav-heading">Application</li>
 
             @can('view-any', App\Models\Category::class)
@@ -72,7 +80,7 @@
                     </a>
                 </li>
             @endcan
-            @can('view-any', App\Models\ProdukTitipan::class)
+            {{-- @can('view-any', App\Models\ProdukTitipan::class)
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('titipan.index') ? '' : 'collapsed' }}"
                         href="{{ route('titipan.index') }}">
@@ -80,7 +88,7 @@
                         <span>Produk Titipan</span>
                     </a>
                 </li>
-            @endcan
+            @endcan --}}
             @can('view-any', App\Models\Laporan::class)
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs(['absensi.index']) ? '' : 'collapsed' }}"

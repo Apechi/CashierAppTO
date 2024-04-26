@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email');
-            $table->integer('no_telp');
+            $table->string('no_telp');
             $table->text('address');
 
             $table->timestamps();

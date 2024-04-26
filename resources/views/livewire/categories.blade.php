@@ -104,6 +104,8 @@
                         @csrf
                         <input type="file" name="file" class="form-control">
                         <br>
+                        <a href="{{ asset('assets/format_import/format_import_kategori.xlsx') }}">Download Format
+                            Di Sini..</a>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

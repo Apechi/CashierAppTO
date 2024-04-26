@@ -11,9 +11,11 @@
                     <a href="type/export/" class="btn btn-dark">
                         <i class="bi bi-file-excel"></i> @lang('crud.common.export.excel')
                     </a>
-                    <a href="" data-bs-toggle="modal" data-bs-target="#ImportExcel" class="btn btn-warning">
-                        <i class="bi bi-file-excel"></i> @lang('crud.common.import')
-                    </a>
+                    @can('create', App\Models\Type::class)
+                        <a href="" data-bs-toggle="modal" data-bs-target="#ImportExcel" class="btn btn-warning">
+                            <i class="bi bi-file-excel"></i> @lang('crud.common.import')
+                        </a>
+                    @endcan
                     @can('create', App\Models\Type::class)
                         <a href="{{ route('types.create') }}" class="btn btn-primary">
                             <i class="icon ion-md-add"></i> @lang('crud.common.create')
@@ -111,6 +113,8 @@
                         @csrf
                         <input type="file" name="file" class="form-control">
                         <br>
+                        <a href="{{ asset('assets/format_import/format_import_tipe.xlsx') }}">Download Format
+                            Di Sini..</a>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

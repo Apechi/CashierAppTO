@@ -5,8 +5,9 @@ namespace App\Imports;
 use App\Models\Menu;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class MenuImport implements ToModel
+class MenuImport implements ToModel, WithHeadingRow
 {
     /**
      * @param array $row
@@ -16,11 +17,11 @@ class MenuImport implements ToModel
     public function model(array $row)
     {
         return new Menu([
-            'name' => $row[0],
-            'price' => $row[1],
-            'image' => $row[2],
-            'description' => $row[3],
-            'type_id' => $row[4],
+            'name' => $row['nama_menu'],
+            'price' => $row['harga'],
+            'image' => $row['image'],
+            'description' => $row['deskripsi'],
+            'type_id' => $row['id_tipe'],
 
             'created_at' => now(),
             'updated_at' => now(),

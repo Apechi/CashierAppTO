@@ -5,8 +5,9 @@ namespace App\Imports;
 use App\Models\Booking;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class BookingsImport implements ToModel
+class BookingsImport implements ToModel, WithHeadingRow
 {
     /**
      * @param array $row
@@ -16,12 +17,12 @@ class BookingsImport implements ToModel
     public function model(array $row)
     {
         return new Booking([
-            'date' => $row[0],
-            'table_id' => $row[1],
-            'start_time' => $row[2],
-            'end_time' => $row[3],
-            'bookers_name' => $row[4],
-            'total_customer' => $row[5],
+            'date' => $row['tanggal'],
+            'table_id' => $row['nomor_meja'],
+            'start_time' => $row['waktu_mulai'],
+            'end_time' => $row['waktu_selesai'],
+            'bookers_name' => $row['nama_pemesan'],
+            'total_customer' => $row['total_pelanggan'],
 
             'created_at' => now(),
             'updated_at' => now(),

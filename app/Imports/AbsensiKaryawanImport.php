@@ -16,15 +16,12 @@ class AbsensiKaryawanImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        $absensi = new Absensi([
+        return new Absensi([
             'namaKaryawan' => $row['nama_karyawan'],
             'tanggalMasuk' => $row['tanggal_masuk'],
             'waktuMasuk' => $row['waktu_masuk'],
             'status' => $row['status'],
             'waktuKeluar' => $row['waktu_keluar'],
         ]);
-
-
-        $absensi->save();
     }
 }

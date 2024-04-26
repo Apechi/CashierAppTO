@@ -5,8 +5,9 @@ namespace App\Imports;
 use App\Models\Table;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class MejaImport implements ToModel
+class MejaImport implements ToModel, WithHeadingRow
 {
     /**
      * @param array $row
@@ -16,9 +17,9 @@ class MejaImport implements ToModel
     public function model(array $row)
     {
         return new Table([
-            'table_number' => $row[0],
-            'capacity' => $row[1],
-            'status' => $row[2],
+            'table_number' => $row['nomor_meja'],
+            'capacity' => $row['kapasitas'],
+            'status' => $row['status'],
 
             'created_at' => now(),
             'updated_at' => now(),

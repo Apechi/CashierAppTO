@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>ApechiCafe</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
@@ -19,7 +21,7 @@
 
 
     <!-- Vendor CSS Files -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css">
     <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
@@ -96,7 +98,7 @@
     <x-livewire-alert::scripts />
     <x-livewire-alert::flash />
 
-    @stack('modals')
+    {{-- @stack('modals') --}}
 
 
 

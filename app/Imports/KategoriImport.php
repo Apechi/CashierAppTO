@@ -5,8 +5,9 @@ namespace App\Imports;
 use App\Models\Category;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class KategoriImport implements ToModel
+class KategoriImport implements ToModel, WithHeadingRow
 {
     /**
      * @param array $row
@@ -16,8 +17,8 @@ class KategoriImport implements ToModel
     public function model(array $row)
     {
         return new Category([
-            'icon' => $row[0],
-            'name' => $row[1],
+            'icon' => $row['bootstrap_icon'],
+            'name' => $row['nama'],
 
             'created_at' => now(),
             'updated_at' => now(),

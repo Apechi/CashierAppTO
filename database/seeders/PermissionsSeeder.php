@@ -141,7 +141,7 @@ class PermissionsSeeder extends Seeder
         $allPermissions = Permission::all();
         $adminRole = Role::create(['name' => 'super-admin']);
         $adminRole->givePermissionTo($allPermissions);
-
+        
         $user = \App\Models\User::whereEmail('admin@admin.com')->first();
         $bookerUser = \App\Models\User::whereEmail('booker@booker.com')->first()->assignRole($bookerRole);
         $cashierUser = \App\Models\User::whereEmail('cashier@cashier.com')->first()->assignRole($cashierRole);

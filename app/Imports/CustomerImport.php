@@ -5,8 +5,9 @@ namespace App\Imports;
 use App\Models\Customer;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class CustomerImport implements ToModel
+class CustomerImport implements ToModel, WithHeadingRow
 {
     /**
      * @param array $row
@@ -16,14 +17,13 @@ class CustomerImport implements ToModel
     public function model(array $row)
     {
         return new Customer([
-            'name' => $row[0],
-            'email' => $row[1],
-            'no_telp' => $row[2],
-            'address' => $row[3],
+            'name' => $row['nama'],
+            'email' => $row['email'],
+            'no_telp' => $row['no_telp'],
+            'address' => $row['alamat'],
 
             'created_at' => now(),
             'updated_at' => now(),
         ]);
     }
 }
-

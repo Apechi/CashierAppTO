@@ -14,23 +14,6 @@ class PermissionsSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        //Cashier Permission
-        Permission::create(['name' => 'list bookings']);
-        Permission::create(['name' => 'view bookings']);
-        Permission::create(['name' => 'list categories']);
-        Permission::create(['name' => 'view categories']);
-        Permission::create(['name' => 'list customers']);
-        Permission::create(['name' => 'view customers']);
-        Permission::create(['name' => 'list menus']);
-        Permission::create(['name' => 'view menus']);
-        Permission::create(['name' => 'list stocks']);
-        Permission::create(['name' => 'view stocks']);
-        Permission::create(['name' => 'list tables']);
-        Permission::create(['name' => 'view tables']);
-        Permission::create(['name' => 'list types']);
-        Permission::create(['name' => 'view types']);
-        Permission::create(['name' => 'list produk_titipans']);
-        Permission::create(['name' => 'view produk_titipans']);
 
         Permission::create(['name' => 'list transactions']);
         Permission::create(['name' => 'view transactions']);
@@ -55,6 +38,25 @@ class PermissionsSeeder extends Seeder
         $cashierRole->givePermissionTo($currentPermissions);
 
         // Create default permissions
+
+        Permission::create(['name' => 'list bookings']);
+        Permission::create(['name' => 'view bookings']);
+        Permission::create(['name' => 'list categories']);
+        Permission::create(['name' => 'view categories']);
+        Permission::create(['name' => 'list customers']);
+        Permission::create(['name' => 'view customers']);
+        Permission::create(['name' => 'list menus']);
+        Permission::create(['name' => 'view menus']);
+        Permission::create(['name' => 'list stocks']);
+        Permission::create(['name' => 'view stocks']);
+        Permission::create(['name' => 'list tables']);
+        Permission::create(['name' => 'view tables']);
+        Permission::create(['name' => 'list types']);
+        Permission::create(['name' => 'view types']);
+        Permission::create(['name' => 'list produk_titipans']);
+        Permission::create(['name' => 'view produk_titipans']);
+        Permission::create(['name' => 'list laporan_transaksi']);
+        Permission::create(['name' => 'view laporan_transaksi']);
 
         Permission::create(['name' => 'create bookings']);
         Permission::create(['name' => 'update bookings']);
@@ -98,21 +100,9 @@ class PermissionsSeeder extends Seeder
 
         //booker permimission
 
-        $bookerRole = Role::create(['name' => 'booker']);
-
-        $bookerPermission = [
-            'list bookings',
-            'view bookings',
-            'create bookings',
-            'update bookings',
-            'delete bookings',
-
-            'list tables',
-            'view tables',
-
-        ];
-
-        $bookerRole->givePermissionTo($bookerPermission);
+        $ordinaryAdmin = Role::create(['name' => 'admin']);
+        $ordinaryAdminPermission = Permission::all();
+        $ordinaryAdmin->givePermissionTo($ordinaryAdminPermission);
 
 
 
@@ -141,9 +131,9 @@ class PermissionsSeeder extends Seeder
         $allPermissions = Permission::all();
         $adminRole = Role::create(['name' => 'super-admin']);
         $adminRole->givePermissionTo($allPermissions);
-        
-        $user = \App\Models\User::whereEmail('admin@admin.com')->first();
-        $bookerUser = \App\Models\User::whereEmail('booker@booker.com')->first()->assignRole($bookerRole);
+
+        $user = \App\Models\User::whereEmail('superadmin@admin.com')->first();
+        $bookerUser = \App\Models\User::whereEmail('admin@admin.com')->first()->assignRole($ordinaryAdmin);
         $cashierUser = \App\Models\User::whereEmail('cashier@cashier.com')->first()->assignRole($cashierRole);
 
         if ($user) {

@@ -16,22 +16,22 @@ class DatabaseSeeder extends Seeder
         $user = \App\Models\User::factory()
             ->count(1)
             ->create([
-                'email' => 'admin@admin.com',
-                'password' => Hash::make('admin'),
+                'email' => 'superadmin@admin.com',
+                'password' => Hash::make('admin123'),
             ]);
 
         \App\Models\User::factory()
             ->count(1)
             ->create([
                 'email' => 'cashier@cashier.com',
-                'password' => Hash::make('cashier'),
+                'password' => Hash::make('cashier123'),
             ]);
 
         \App\Models\User::factory()
             ->count(1)
             ->create([
-                'email' => 'booker@booker.com',
-                'password' => Hash::make('booker'),
+                'email' => 'admin@admin.com',
+                'password' => Hash::make('admin123'),
             ]);
 
 

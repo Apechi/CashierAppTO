@@ -45,7 +45,7 @@ class HomeController extends Controller
         $jumlahTransaksiPertanggal = Transaction::where('date', date('Y-m-d'))->count();
 
         //10 transaksi terakhir
-        $transaksiTerakhir = Transaction::orderBy('created_at', 'desc')->take(10)->get();
+        $transaksiTerakhir = Transaction::orderBy('date', 'desc')->take(10)->get();
 
         //totalPendapatan
         $totalPendapatan = Transaction::all()->sum('total_price');
@@ -59,12 +59,8 @@ class HomeController extends Controller
             ->first();
         $menuPalingLaku = Menu::find($menuPalingLaku->menu_id);
 
-        //total pendapatan perbulan
-        $totalPendapatanPerbulan = Transaction::select(DB::raw("MONTH('date') as bulan"), DB::raw("YEAR('date') as tahun"), DB::raw('SUM(total_price) as total'))
-            ->groupBy('bulan', 'tahun')
-            ->orderBy('bulan', 'asc')
-            ->get();
-
+        //total pendapatan perhari
+        $totalPendapatanPerhari = Transaction::where('date', date('Y-m-d'))->sum('total_price');
 
         //stokhampirhabis
         $menusWithLowStock = Menu::whereHas('stocks', function ($query) {
@@ -73,6 +69,27 @@ class HomeController extends Controller
 
 
 
-        return view('home', compact('jumlahMenu', 'jumlahPelanggan', 'jumlahTransaksi', 'jumlahTransaksiPertanggal', 'transaksiTerakhir', 'totalPendapatan', 'totalPendapatanPertanggal', 'menuPalingLaku', 'menusWithLowStock'));
+        $totalPendapatanPerMinggu = $this->showChart();
+
+
+        return view('home', compact('jumlahMenu', 'jumlahPelanggan', 'jumlahTransaksi', 'jumlahTransaksiPertanggal', 'transaksiTerakhir', 'totalPendapatan', 'totalPendapatanPertanggal', 'menuPalingLaku', 'menusWithLowStock', 'totalPendapatanPerMinggu'));
+    }
+
+    public function tampilkanGrafik(): array
+    {
+        $bulanSaatIni = date('m');
+        $tahunSaatIni = date('Y');
+
+        $jumlahMinggu = ceil(date('t') / 7);
+        $totalPendapatanPerMinggu = [];
+
+        for ($minggu = 1; $minggu <= $jumlahMinggu; $minggu++) {
+            $tanggalAwalMinggu = date('Y-m-d', strtotime("$tahunSaatIni-$bulanSaatIni-01 +" . ($minggu - 1) . " weeks"));
+            $tanggalAkhirMinggu = date('Y-m-d', strtotime("$tanggalAwalMinggu +6 days"));
+            $totalPendapatan = Transaction::whereBetween('date', [$tanggalAwalMinggu, $tanggalAkhirMinggu])->sum('total_price');
+            $totalPendapatanPerMinggu["Minggu ke $minggu"] = $totalPendapatan;
+        }
+
+        return $totalPendapatanPerMinggu;
     }
 }

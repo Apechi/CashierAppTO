@@ -66,7 +66,7 @@
                             </div>
                         @else
                             @foreach ($produk as $item)
-                                <div wire:key='menu-{{ $item->id }}' class="col-sm-12  col-md-3">
+                                <div wire:key='menu-{{ $item->id }}' class="col-sm-12 col-md-3 p-2">
                                     <div class="card h-100 ">
                                         <img src="{{ $item->image ? \Storage::url($item->image) : '' }}"
                                             class="card-img-top p-3 img-fluid" style="border-radius: 2em"
@@ -243,7 +243,7 @@
                 const key = event.key;
                 const keyCode = event.which || event.keyCode;
 
-             
+
                 if (/^\d$/.test(key) || (keyCode >= 98 && keyCode <= 105)) {
                     barcodeInput += key;
                 } else if (key === 'Enter') {

@@ -15,8 +15,9 @@
                         </p>
                         <div class="">
                             <select wire:model.lazy="customer_id" name="customer_id"
-                                class="form-select form-select-sm @error('customer_id') is-invalid @enderror">
-                                <option selected>Pilih Customer</option>
+                                class="form-select form-select-sm @error('customer_id') is-invalid @enderror"
+                                id="customer_select">
+                                <option value="">Pilih Customer</option>
                                 @foreach ($customer as $pelanggan)
                                     <option value="{{ $pelanggan->id }}">{{ $pelanggan->name }}</option>
                                 @endforeach
@@ -124,3 +125,15 @@
 
     </div>
 </div>
+@script
+    <script>
+        $(document).ready(function() {
+
+            $('#customer_select').select2({
+                dropdownParent: $('#CheckoutModal'),
+                placeholder: "Pilih Customer",
+                allowClear: true
+            });
+        });
+    </script>
+@endscript

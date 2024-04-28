@@ -12,8 +12,9 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::factory()
-            ->count(5)
-            ->create();
+        Category::create([
+            'icon' => 'fa fa-bowl-food',
+            'name' => 'Makanan'
+        ]);
     }
 }

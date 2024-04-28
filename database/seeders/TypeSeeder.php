@@ -12,8 +12,10 @@ class TypeSeeder extends Seeder
      */
     public function run(): void
     {
-        Type::factory()
-            ->count(5)
-            ->create();
+        Type::create([
+            'name' => 'Vegan',
+            'icon' => 'fa fa-wheat-awn',
+            'category_id' => 1
+        ]);
     }
 }

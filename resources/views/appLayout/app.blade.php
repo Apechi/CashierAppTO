@@ -38,6 +38,7 @@
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
 
     {{-- customCSS --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     @livewireStyles
     @stack('style')
@@ -92,9 +93,12 @@
     <script src="assets/js/main.js"></script>
 
     {{-- customJS --}}
+
     @livewireScripts
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
     <x-livewire-alert::scripts />
     <x-livewire-alert::flash />
 
@@ -105,6 +109,7 @@
     @stack('scripts')
 
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
 
     @if (session()->has('success'))
         <script>

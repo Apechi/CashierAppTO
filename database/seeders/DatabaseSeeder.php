@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             ]);
 
         \App\Models\User::factory()
-            ->count(    1)
+            ->count(1)
             ->create([
                 'email' => 'cashier@cashier.com',
                 'password' => Hash::make('cashier'),
@@ -38,15 +38,27 @@ class DatabaseSeeder extends Seeder
 
         $this->call(PermissionsSeeder::class);
 
+        $this->call(CategoryAndTypeSeed::class);
+        $this->call(MenuSeeder::class);
+        $this->call(StockSeeder::class);
+
+        $this->call(CustomerSeeder::class);
+
+        $this->call(TransactionSeeder::class);
+
+
+        // \App\Models\Transaction::factory(250)->create()->each(function ($transaction) {
+        //     $transaction->transactionDetails()->saveMany(\App\Models\TransactionDetail::factory(rand(1, 5))->make([
+        //         'menu_id' => \App\Models\Menu::inRandomOrder()->first()->id,
+        //     ]));
+        // });
+
         // $this->call(BookingSeeder::class);
-        // $this->call(CategorySeeder::class);
-        // $this->call(CustomerSeeder::class);
-        // $this->call(MenuSeeder::class);
-        // $this->call(StockSeeder::class);
+
         // $this->call(TableSeeder::class);
         // $this->call(TransactionSeeder::class);
         // $this->call(TransactionDetailSeeder::class);
-        // $this->call(TypeSeeder::class);
+
         // $this->call(UserSeeder::class);
     }
 }

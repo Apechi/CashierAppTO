@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('menu_id');
             $table->unsignedBigInteger('transaction_id');
             $table->integer('qty');
-            $table->decimal('unitPrice');
-            $table->decimal('subTotal');
+            $table->double('unitPrice');
+            $table->double('subTotal');
             $table->timestamps();
         });
     }

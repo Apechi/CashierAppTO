@@ -129,6 +129,10 @@ Route::prefix('/')
         //TO Exclusive
 
         Route::get('karyawanabsensi/exportpdf', [AbsensiController::class, 'exportpdf']);
+
+        Route::get('get-chart-data', [HomeController::class, 'getDataChart']);
+        Route::get('total-pendapatan', [HomeController::class, 'totalPendapatanBetween']);
+        Route::get('total-transaksi', [HomeController::class, 'totalTransaksi']);
     });
 
 //TO Exclusive

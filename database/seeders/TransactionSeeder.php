@@ -39,22 +39,20 @@ class TransactionSeeder extends Seeder
 
     private function generateCustomId()
     {
-        // Generate a unique identifier based on the current timestamp
+
         $timestamp = now()->format('YmdHis');
 
-        // Retrieve the last transaction ID created in the current timestamp format
         $lastCustomId = Transaction::where('id', 'like', $timestamp . '%')->orderByDesc('id')->first();
 
         if ($lastCustomId) {
-            // Extract the numeric portion of the last ID and increment it
+
             $lastIdNumeric = intval(substr($lastCustomId->id, -4));
             $newIdNumeric = $lastIdNumeric + 1;
         } else {
-            // If no transaction exists in the current timestamp, start from 1
+
             $newIdNumeric = 1;
         }
 
-        // Generate the new custom ID by combining the timestamp and the incremented numeric portion
         $newId = $timestamp . str_pad($newIdNumeric, 4, '0', STR_PAD_LEFT);
 
         return $newId;
@@ -63,21 +61,21 @@ class TransactionSeeder extends Seeder
 
     private function createTransactionDetails(Transaction $transaction)
     {
-        // Assuming you have 10 different menus
+        
         $menus = \App\Models\Menu::all();
 
-        // You can adjust the number of transaction details per transaction
+        
         $numberOfDetails = rand(1, 5);
 
         for ($i = 0; $i < $numberOfDetails; $i++) {
-            $menu = $menus->random(); // Pick a random menu
+            $menu = $menus->random(); 
 
             TransactionDetail::create([
                 'menu_id' => $menu->id,
                 'transaction_id' => $transaction->id,
-                'qty' => rand(1, 5), // Random quantity
-                'unitPrice' => $menu->price, // Get actual unit price from the menu
-                'subTotal' => $menu->price * rand(1, 5), // Calculate sub total based on quantity
+                'qty' => rand(1, 5), 
+                'unitPrice' => $menu->price, 
+                'subTotal' => $menu->price * rand(1, 5), 
             ]);
         }
     }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('date');
-            $table->decimal('total_price');
+            $table->double('total_price');
             $table->enum('payment_method', ['cash', 'debit']);
             $table->text('keterangan');
             $table->unsignedBigInteger('customer_id');

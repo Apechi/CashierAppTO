@@ -100,6 +100,7 @@ class HomeController extends Controller
         })->get();
 
 
+
         $bulanSaatIni = date('m');
         $totalPendapatanPerHari = $this->tampilkanGrafik($bulanSaatIni);
 

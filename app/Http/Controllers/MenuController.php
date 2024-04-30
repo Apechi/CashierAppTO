@@ -135,7 +135,7 @@ class MenuController extends Controller
     {
         $data = Menu::all();
         $pdf = Pdf::loadView('app.menus.pdf', compact('data'));
-        return $pdf->download('menu.pdf');
+        return $pdf->download('menu123.pdf');
     }
 
     public function exportExcel()

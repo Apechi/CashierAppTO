@@ -7,13 +7,14 @@
 
         @auth
 
-
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs(['home']) ? '' : 'collapsed' }}" href="{{ route('home') }}">
-                    <i class="bi bi-house"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
+            @can('view-any', App\Models\Category::class)
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs(['home']) ? '' : 'collapsed' }}" href="{{ route('home') }}">
+                        <i class="bi bi-house"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+            @endcan
 
 
             <li class="nav-heading">Application</li>

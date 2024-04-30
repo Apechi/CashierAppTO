@@ -40,9 +40,9 @@ class TransactionController extends Controller
     {
         $this->authorize('view-any', Transaction::class);
 
-        $transactions = Transaction::latest()->get();
 
-        return view('app.transaction.list', compact('transactions'));
+
+        return view('app.transaction.list');
     }
 
     public function show($id)

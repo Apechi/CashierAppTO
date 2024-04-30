@@ -40,7 +40,7 @@
                                     <p class="info-box-text label_total_pendapatan">Total Pendapatan (Keseluruhan):</p>
                                 </div>
                                 <span class="info-box-number fs-4 fw-bold text-success total_pendapatan">Rp
-                                    {{ number_format($totalPendapatan, 2) }}</span>
+                                    {{ number_format($totalPendapatan, 2, ',', '.') }}</span>
                             </div>
                         </div>
                         <div class="col-md-4 mb-3">
@@ -227,7 +227,7 @@
                         dailyIncomeChart.update();
                         $('.label_judul_chart').text(
                             `Grafik Pendapatan Tanggal: ${tanggalMulai} - ${tanggalSelesai}`
-                            )
+                        )
                     },
                     error: function(xhr, status, error) {
                         console.error(error);

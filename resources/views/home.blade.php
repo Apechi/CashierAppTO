@@ -222,6 +222,7 @@
                         tanggal_selesai: tanggalSelesai
                     },
                     success: function(data) {
+                        console.log(data);
                         dailyIncomeChart.data.labels = Object.keys(data);
                         dailyIncomeChart.data.datasets[0].data = Object.values(data);
                         dailyIncomeChart.update();
@@ -233,6 +234,7 @@
                         console.error(error);
                     }
                 });
+
 
                 $.ajax({
                     type: "GET",
@@ -268,6 +270,7 @@
                     }
                 });
             });
+
 
 
 

@@ -134,8 +134,8 @@ class MenuController extends Controller
     public function exportpdf()
     {
         $data = Menu::all();
-        $pdf = Pdf::loadView('app.menus.pdf', compact('data'));
-        return $pdf->download('menu123.pdf');
+        return PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('app.menus.pdf', compact('data'))->stream();
+        // return $pdf->download('menus.pdf');
     }
 
     public function exportExcel()

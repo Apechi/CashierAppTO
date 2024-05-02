@@ -57,7 +57,11 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <input type="text" id="searchInput" class="form-control search-input" placeholder="Cari...">
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table id="tableTransaksi" class="table table-borderless table-hover">
                         <thead>
@@ -116,6 +120,7 @@
                         </tbody>
 
                     </table>
+
                 </div>
             </div>
         </div>
@@ -135,6 +140,21 @@
 
                 // Open the select dropdown when there's input in the search field
                 $('#menu').click();
+            });
+
+            $('#searchInput').on('input', function() {
+                var searchText = $(this).val().toLowerCase();
+
+                $('#tableTransaksi tbody tr').each(function() {
+                    var rowText = $(this).text().toLowerCase(); // Get text of entire row
+
+                    // Show row if any column contains the search text
+                    if (rowText.includes(searchText)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
             });
 
         });

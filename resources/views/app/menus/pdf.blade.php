@@ -31,7 +31,6 @@
         <thead>
             <th>Nama</th>
             <th>Harga</th>
-            <th>Gambar Menu</th>
             <th>Deskripsi</th>
             <th>Tipe Menu</th>
         </thead>
@@ -40,9 +39,6 @@
                 <tr>
                     <td>{{ $show->name }}</td>
                     <td>{{ $show->price }}</td>
-                    <td><img src="{{ public_path('storage/images/' . $show->image ? \Storage::url($show->image) : '') }}"
-                            alt="" style="width: 100px; height: 100px;"></td>
-
                     <td>{{ $show->description }}</td>
                     <td>{{ $show->type->name }}</td>
                 </tr>

@@ -102,6 +102,7 @@ class HomeController extends Controller
 
 
         $bulanSaatIni = date('m');
+        
         $totalPendapatanPerHari = $this->tampilkanGrafik($bulanSaatIni);
 
 
@@ -134,20 +135,20 @@ class HomeController extends Controller
             'total_transaksi' => $totalTransaksi,
         ]);
     }
-    public function totalPendapatan(Request $request)
-    {
-        $year = date('Y');
-        $month = $request->input('bulan');
-        $month_padded = str_pad($month, 2, '0', STR_PAD_LEFT);
-        $full_date = "$year-$month_padded";
+    // public function totalPendapatan(Request $request)
+    // {
+    //     $year = date('Y');
+    //     $month = $request->input('bulan');
+    //     $month_padded = str_pad($month, 2, '0', STR_PAD_LEFT);
+    //     $full_date = "$year-$month_padded";
 
-        $totalPendapatan = Transaction::where('date', 'LIKE', "$full_date%")->sum('total_price');
+    //     $totalPendapatan = Transaction::where('date', 'LIKE', "$full_date%")->sum('total_price');
 
-        return response()->json([
-            'total_pendapatan' => $totalPendapatan,
-            'month' => $month_padded,
-        ]);
-    }
+    //     return response()->json([
+    //         'total_pendapatan' => $totalPendapatan,
+    //         'month' => $month_padded,
+    //     ]);
+    // }
 
     public function totalPendapatanBetween(Request $request)
     {
